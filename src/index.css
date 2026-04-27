@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sakura Lounge Design System
+   Colors MUST be HSL.
+   Theme: dark, elegant, modern Japanese — black, off-white, crimson red.
+*/
+
+@layer base {
+  :root {
+    /* Core dark palette */
+    --background: 0 0% 5%;
+    --foreground: 30 20% 94%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 30 20% 94%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 30 20% 94%;
+
+    /* Crimson red — primary brand */
+    --primary: 354 78% 48%;
+    --primary-foreground: 30 20% 96%;
+    --primary-glow: 354 90% 60%;
+    --primary-deep: 354 75% 32%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 30 20% 94%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 30 8% 65%;
+
+    --accent: 354 78% 48%;
+    --accent-foreground: 30 20% 96%;
+
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 30 20% 96%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 354 78% 48%;
+
+    --radius: 0.25rem;
+
+    /* Brand-specific */
+    --sakura: 340 70% 75%;
+    --gold: 40 60% 65%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0% / 0.55) 0%, hsl(0 0% 3% / 0.85) 60%, hsl(0 0% 5%) 100%);
+    --gradient-red: linear-gradient(135deg, hsl(354 78% 48%) 0%, hsl(354 90% 38%) 100%);
+    --gradient-radial-red: radial-gradient(circle at center, hsl(354 78% 48% / 0.18), transparent 70%);
+
+    /* Shadows */
+    --shadow-red: 0 10px 40px -10px hsl(354 90% 50% / 0.45);
+    --shadow-elegant: 0 20px 60px -20px hsl(0 0% 0% / 0.8);
+    --shadow-glow: 0 0 40px hsl(354 90% 60% / 0.35);
+
+    /* Transitions */
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.4);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  .font-jp {
+    font-family: "Noto Serif JP", serif;
+  }
+
+  .font-body {
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  .text-gradient-red {
+    background: var(--gradient-red);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-red {
+    box-shadow: var(--shadow-red);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s var(--ease-smooth), transform 0.9s var(--ease-smooth);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .divider-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.6), transparent);
+  }
+}
