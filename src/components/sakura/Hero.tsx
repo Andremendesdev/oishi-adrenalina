@@ -39,10 +39,12 @@ export const Hero = () => {
             </span>
           </div>
 
-          <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground">
+          <h1 className="font-display text-7xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground text-black font-black">
             Oishi
             <br />
-            <span className="italic text-gradient-red font-medium">Adrenalina</span>
+            <span className="italic text-gradient-red font-medium">
+              Adrenalina
+            </span>
           </h1>
 
           <p className="mt-8 max-w-xl font-display text-2xl md:text-3xl text-foreground/85 leading-snug">

@@ -28,17 +28,49 @@ export const Gallery = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60" />
           </figure>
-          <figure className="reveal relative overflow-hidden group" style={{ transitionDelay: "100ms" }}>
-            <img src={g2} alt="Chef preparando sushi" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+          <figure
+            className="reveal relative overflow-hidden group"
+            style={{ transitionDelay: "100ms" }}
+          >
+            <img
+              src={g2}
+              alt="Chef preparando sushi"
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+            />
           </figure>
-          <figure className="reveal relative overflow-hidden group" style={{ transitionDelay: "180ms" }}>
-            <img src={g4} alt="Variedade de sushi" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+          <figure
+            className="reveal relative overflow-hidden group"
+            style={{ transitionDelay: "180ms" }}
+          >
+            <img
+              src={g4}
+              alt="Variedade de sushi"
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+            />
           </figure>
-          <figure className="reveal relative overflow-hidden group" style={{ transitionDelay: "260ms" }}>
-            <img src={g3} alt="Bar do Sakura Lounge" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+          <figure
+            className="reveal relative overflow-hidden group"
+            style={{ transitionDelay: "260ms" }}
+          >
+            <img
+              src={g3}
+              alt="Bar do Sakura Lounge"
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+            />
           </figure>
-          <figure className="reveal relative overflow-hidden group" style={{ transitionDelay: "340ms" }}>
-            <img src={hero} alt="Ambiente do restaurante" loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
+          <figure
+            className="reveal relative overflow-hidden group"
+            style={{ transitionDelay: "340ms" }}
+          >
+            <img
+              src={hero}
+              alt="Ambiente do restaurante"
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+            />
           </figure>
         </div>
       </div>

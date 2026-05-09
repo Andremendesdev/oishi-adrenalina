@@ -11,8 +11,7 @@ export const CtaReserve = () => {
             ご予約
           </span>
           <h2 className="mt-6 font-display text-5xl md:text-7xl leading-[1.02]">
-            Faça sua{" "}
-            <span className="italic text-gradient-red">reserva</span>
+            Faça sua <span className="italic text-gradient-red">reserva</span>
             <br />
             agora.
           </h2>

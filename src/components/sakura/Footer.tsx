@@ -6,7 +6,9 @@ export const Footer = () => {
       <div className="container grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
           <div className="flex items-baseline gap-2">
-            <span className="font-display text-3xl tracking-[0.25em]">Oishi</span>
+            <span className="font-display text-3xl tracking-[0.25em]">
+              Oishi
+            </span>
             <span className="font-jp text-primary">桜</span>
           </div>
           <p className="mt-5 max-w-sm text-sm text-muted-foreground leading-relaxed">
@@ -53,7 +55,10 @@ export const Footer = () => {
       </div>
 
       <div className="container mt-12 pt-8 border-t border-border/60 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} Oishi Adrenalina. Todos os direitos reservados.</p>
+        <p>
+          © {new Date().getFullYear()} Oishi Restaurante. Todos os direitos
+          reservados.
+        </p>
         <p className="font-jp tracking-widest">桜・ラウンジ</p>
       </div>
     </footer>

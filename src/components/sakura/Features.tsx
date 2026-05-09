@@ -33,12 +33,14 @@ export const Features = () => {
               特徴
             </span>
             <h2 className="mt-4 font-display text-5xl md:text-6xl leading-[1.05]">
-              Nossos <span className="italic text-gradient-red">diferenciais</span>
+              Nossos{" "}
+              <span className="italic text-gradient-red">diferenciais</span>
             </h2>
           </div>
           <p className="lg:col-span-6 lg:col-start-7 self-end text-muted-foreground text-lg leading-relaxed reveal">
-            Cada detalhe foi pensado para transformar uma simples refeição em uma
-            experiência sensorial completa — do primeiro gole ao último corte.
+            Cada detalhe foi pensado para transformar uma simples refeição em
+            uma experiência sensorial completa — do primeiro gole ao último
+            corte.
           </p>
         </div>
 

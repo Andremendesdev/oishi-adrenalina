@@ -13,12 +13,15 @@ export const About = () => {
           </h2>
         </div>
 
-        <div className="lg:col-span-6 lg:col-start-7 reveal" style={{ transitionDelay: "120ms" }}>
+        <div
+          className="lg:col-span-6 lg:col-start-7 reveal"
+          style={{ transitionDelay: "120ms" }}
+        >
           <p className="text-lg leading-relaxed text-foreground/85 font-light">
-            O <span className="text-primary">Sakura Lounge</span> é um
-            restaurante e bar japonês reconhecido pela atmosfera única que
-            mistura ritual, sabor e modernidade. Cada prato é uma homenagem à
-            culinária nipônica; cada drink, uma releitura ousada do oriente.
+            O <span className="text-primary">Oishi</span> é um restaurante e bar
+            japonês reconhecido pela atmosfera única que mistura ritual, sabor e
+            modernidade. Cada prato é uma homenagem à culinária nipônica; cada
+            drink, uma releitura ousada do oriente.
           </p>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
             De sushi e sashimi cuidadosamente selecionados a temakis exclusivos
