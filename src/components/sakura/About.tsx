@@ -9,7 +9,7 @@ export const About = () => {
           <h2 className="mt-4 font-display text-5xl md:text-6xl leading-[1.05]">
             Onde a tradição
             <br />
-            <span className="italic text-gradient-red">encontra a noite.</span>
+            <span className="italic text-gradient-red">encontra Piraju.</span>
           </h2>
         </div>
 
@@ -19,9 +19,8 @@ export const About = () => {
         >
           <p className="text-lg leading-relaxed text-foreground/85 font-light">
             O <span className="text-primary">Oishi</span> é um restaurante e bar
-            japonês reconhecido pela atmosfera única que mistura ritual, sabor e
-            modernidade. Cada prato é uma homenagem à culinária nipônica; cada
-            drink, uma releitura ousada do oriente.
+            japonês reconhecido pela atmosfera única, sabor e modernidade.
+            Membro AGSB 🇯🇵🇧🇷, uma releitura ousada do oriente.
           </p>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
             De sushi e sashimi cuidadosamente selecionados a temakis exclusivos
@@ -33,10 +32,18 @@ export const About = () => {
             {[
               { n: "10+", l: "Anos de tradição" },
               { n: "60", l: "Itens no cardápio" },
-              { n: "4.9", l: "Avaliação média" },
-            ].map((s) => (
+              { n: "AGSB 🇯🇵🇧🇷", l: "Membro" },
+            ].map((s, i) => (
               <div key={s.l}>
-                <div className="font-display text-4xl text-primary">{s.n}</div>
+                <div
+                  className={`
+                   font-display text-primary
+                   ${i === 2 ? "text-2xl" : "text-4xl"}
+                      `}
+                >
+                  {s.n}
+                </div>
+
                 <div className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   {s.l}
                 </div>

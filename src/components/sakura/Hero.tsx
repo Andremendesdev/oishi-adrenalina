@@ -1,6 +1,9 @@
 import heroImg from "@/assets/hero-restaurant.jpg";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { ArrowRight } from "lucide-react";
+import { openRest } from "@/lib/open-rest";
+
+const isOpen = openRest();
 
 export const Hero = () => {
   return (
@@ -29,14 +32,51 @@ export const Hero = () => {
         <span className="h-24 w-px bg-primary/40" />
       </div>
 
+      <div className="absolute top-20 right-6">
+        <div className="flex flex-col items-center rounded-xl border border-red-500/20 bg-zinc-950/85 px-2 py-1 backdrop-blur-sm shadow-[0_0_20px_rgba(239,68,68,0.08)]">
+          <div className="flex items-center gap-2">
+            <div
+              className={`h-1.5 w-1.5 rounded-full ${isOpen ? "bg-green-400 shadow-[0_0_10px_#4ade80]" : "bg-red-400"}`}
+            />
+
+            <span
+              className={`${isOpen ? "text-green-400" : "text-red-400"} text-sm font-bold font-mono`}
+            >
+              16:00
+            </span>
+
+            <span className="text-zinc-600 text-sm">—</span>
+
+            <span
+              className={`${isOpen ? "text-green-400" : "text-red-400"} text-sm font-bold font-mono`}
+            >
+              00:00
+            </span>
+          </div>
+
+          <span
+            className={`${isOpen ? "text-green-400" : "text-red-400"} text-xs uppercase tracking-[0.2em] mt-2 `}
+          >
+            {isOpen ? "Aberto" : "Fechado"}
+          </span>
+        </div>
+      </div>
+
       {/* Content */}
       <div className="container relative z-10 py-32">
         <div className="max-w-3xl animate-fade-in">
           <div className="flex items-center gap-4 mb-8">
             <span className="h-px w-12 bg-primary" />
-            <span className="text-xs uppercase tracking-[0.4em] text-primary font-body">
-              Bar & Restaurante
-            </span>
+
+            <div className="flex flex-col">
+              <p className="text-xs uppercase tracking-[0.4em] text-primary font-body">
+                Bar & Restaurante
+              </p>
+
+              <span className="mt-1 text-[10px] uppercase tracking-[0.3em] text-white/60 font-body">
+                Segunda à Sábado
+              </span>
+            </div>
           </div>
 
           <h1 className="font-display text-7xl md:text-8xl lg:text-9xl leading-[0.95] text-foreground text-black font-black">
@@ -53,8 +93,8 @@ export const Hero = () => {
           </p>
 
           <p className="mt-4 max-w-lg text-muted-foreground text-base leading-relaxed">
-            Sushi autoral, drinks orientais e um ambiente onde tradição encontra
-            sofisticação. Reserve sua mesa e descubra.
+            Referência em gastronomia em Piraju e região. Ambiente familiar &
+            Pet Friendly 🐾
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -64,7 +104,7 @@ export const Hero = () => {
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 bg-gradient-red text-primary-foreground px-8 py-4 text-sm uppercase tracking-[0.25em] shadow-red hover:shadow-glow transition-all duration-500 hover:translate-y-[-2px]"
             >
-              Reservar pelo WhatsApp
+              Chamar no WhatsApp
               <ArrowRight
                 size={16}
                 className="transition-transform duration-500 group-hover:translate-x-1"

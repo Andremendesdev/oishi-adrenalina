@@ -4,22 +4,22 @@ const features = [
   {
     icon: Sparkles,
     title: "Ambiente Sofisticado",
-    desc: "Iluminação cuidada, design contemporâneo e atmosfera intimista.",
+    desc: "Iluminação cuidada, design contemporâneo e atmosfera.",
   },
   {
     icon: Leaf,
     title: "Ingredientes Frescos",
-    desc: "Peixes selecionados diariamente e produtos importados do Japão.",
+    desc: "Peixes selecionados diariamente.",
   },
   {
     icon: Wine,
     title: "Drinks Exclusivos",
-    desc: "Carta autoral assinada pelo nosso bartender, com sake premium.",
+    desc: "Variedades de Drinks, com a melhor qualidade da região.",
   },
   {
     icon: ConciergeBell,
     title: "Atendimento Premium",
-    desc: "Equipe treinada para uma experiência gastronômica memorável.",
+    desc: "Equipe treinada para uma experiência memorável.",
   },
 ];
 

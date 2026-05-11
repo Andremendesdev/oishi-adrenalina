@@ -35,7 +35,9 @@ export const Navbar = () => {
           <span className="font-display text-2xl tracking-[0.25em] text-foreground">
             Oishi
           </span>
-          <span className="font-jp text-sm text-primary tracking-widest">桜</span>
+          <span className="font-jp text-sm text-primary tracking-widest">
+            桜
+          </span>
         </a>
 
         <ul className="hidden md:flex items-center gap-10">
@@ -93,7 +95,7 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
               className="inline-flex w-full justify-center items-center text-xs uppercase tracking-[0.25em] border border-primary/60 px-5 py-3 hover:bg-primary hover:text-primary-foreground transition"
             >
-              Reservar pelo WhatsApp
+              Chamar no WhatsApp
             </a>
           </li>
         </ul>

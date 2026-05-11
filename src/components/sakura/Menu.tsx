@@ -9,13 +9,13 @@ const items = [
     name: "Sushi",
     jp: "寿司",
     desc: "Peças clássicas e autorais com peixes selecionados diariamente.",
-    img: sushi,
+    img: "/images/combinado.png",
   },
   {
-    name: "Sashimi",
+    name: "barca",
     jp: "刺身",
     desc: "Cortes finos de salmão, atum e peixe branco em sua forma mais pura.",
-    img: sashimi,
+    img: "/images/barca.png",
   },
   {
     name: "Temaki",
@@ -33,7 +33,7 @@ const items = [
     name: "Drinks",
     jp: "ドリンク",
     desc: "Coquetéis autorais com sake, gin japonês e infusões de sakura.",
-    img: drinks,
+    img: "/images/drinks.png",
   },
 ];
 

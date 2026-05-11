@@ -7,7 +7,7 @@ export const Footer = () => {
         <div className="md:col-span-2">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.25em]">
-              Oishi
+              Oishi Adrenalina
             </span>
             <span className="font-jp text-primary">桜</span>
           </div>
@@ -24,11 +24,11 @@ export const Footer = () => {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-3">
               <MapPin size={14} className="mt-1 text-primary" />
-              Rua das Cerejeiras, 123 — São Paulo
+              Rua 13 de Maio, 705 — Piraju-SP
             </li>
             <li className="flex items-center gap-3">
               <Phone size={14} className="text-primary" />
-              (11) 99999-9999
+              (14) 99775-7180
             </li>
             <li className="flex items-center gap-3">
               <Instagram size={14} className="text-primary" />
@@ -45,9 +45,9 @@ export const Footer = () => {
             <li className="flex items-start gap-3">
               <Clock size={14} className="mt-1 text-primary" />
               <span>
-                Ter — Dom
+                Seg — Sáb
                 <br />
-                18h às 00h
+                16h às 00h
               </span>
             </li>
           </ul>

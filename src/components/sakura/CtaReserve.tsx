@@ -11,13 +11,13 @@ export const CtaReserve = () => {
             ご予約
           </span>
           <h2 className="mt-6 font-display text-5xl md:text-7xl leading-[1.02]">
-            Faça sua <span className="italic text-gradient-red">reserva</span>
+            Venha nos <span className="italic text-gradient-red">visitar</span>
             <br />
             agora.
           </h2>
           <p className="mt-8 text-lg text-muted-foreground max-w-xl mx-auto">
-            Garanta sua mesa em poucos segundos. Atendimento direto pelo
-            WhatsApp para uma experiência sem fricção.
+            Oishi Adrenalina, gastronomicamente e com o lugar perfeito para
+            desfrutar de uma experiência única.
           </p>
 
           <div className="mt-12">
@@ -27,7 +27,7 @@ export const CtaReserve = () => {
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 bg-gradient-red text-primary-foreground px-10 py-5 text-sm uppercase tracking-[0.25em] shadow-red hover:shadow-glow transition-all duration-500 hover:translate-y-[-2px]"
             >
-              Reservar pelo WhatsApp
+              Chamar no WhatsApp
               <ArrowRight
                 size={16}
                 className="transition-transform duration-500 group-hover:translate-x-1"
