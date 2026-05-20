@@ -12,6 +12,11 @@ import camarao from "@/assets/camarao.jpeg";
 import p1 from "@/assets/p1.jpeg";
 import ceviche from "@/assets/ceviche.jpeg";
 import porcaolinguica from "@/assets/porcaolinguica.jpeg";
+import aneis from "@/assets/aneis.jpeg";
+import drinks from "@/assets/drinks.png";
+import caldo from "@/assets/caldo.jpeg";
+import cevichenataca from "@/assets/cevichenataca.jpeg";
+import milho from "@/assets/milho.jpeg";
 
 export const Menu = () => {
   // 1. Volta a começar mostrando apenas 4 itens
@@ -19,76 +24,89 @@ export const Menu = () => {
 
   const items = [
     {
-      name: "temaki",
-      jp: "おいしい",
+      name: "Temaki",
       desc: "Cones de alga crocante recheados com os peixes mais frescos do dia.",
       img: temaki,
     },
     {
-      name: "barca",
-      jp: "おいしい",
+      name: "Barca",
       desc: "Combinação clássica de cortes finos selecionados pelo nosso sushiman.",
       img: barca,
     },
     {
       name: "Nigiri",
-      jp: "おいしい",
       desc: "Fatias de peixe fresco moldadas perfeitamente sobre arroz temperado.",
       img: Nigiri,
     },
     {
-      name: "Yakssoba",
-      jp: "おいしい",
+      name: "Yaksoba",
       desc: "Tradicional macarrão oriental com legumes frescos e molho artesanal.",
       img: yakssoba,
     },
     {
       name: "Porções",
-      jp: "おいしい",
       desc: "Petiscos e acompanhamentos fritos na hora, crocantes e saborosos.",
       img: porcao,
     },
     {
+      name: "Drinks",
+      desc: "Petiscos e acompanhamentos fritos na hora, crocantes e saborosos.",
+      img: drinks,
+    },
+    {
       name: "Strogonoff",
-      jp: "おいしい",
       desc: "Clássico strogonoff cremoso servido com arroz branco e batata palha.",
       img: strogonoff,
     },
     {
       name: "Nhoque",
-      jp: "おいしい",
       desc: "Massa artesanal leve de batata ao molho suculento da casa.",
       img: nhoque,
     },
     {
-      name: "Massa",
-      jp: "おいしい",
+      name: "Massas",
       desc: "Macarrão perfeitamente cozido al dente com molho especial do chef.",
       img: macarrao,
     },
     {
       name: "Camarão",
-      jp: "おいしい",
       desc: "Camarões selecionados preparados com temperos especiais e muito sabor.",
       img: camarao,
     },
     {
       name: "Poke",
-      jp: "おいしい",
       desc: "Bowl havaiano refrescante com peixes frescos, legumes e molhos especiais.",
       img: p1,
     },
     {
       name: "Ceviche",
-      jp: "おいしい",
       desc: "Peixe marinado no limão com cebola roxa, temperos frescos e toque cítrico.",
       img: ceviche,
     },
     {
       name: "Porção de Linguiça",
-      jp: "おいしい",
       desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
       img: porcaolinguica,
+    },
+    {
+      name: "Anéis de Cebola",
+      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      img: aneis,
+    },
+    {
+      name: "Caldo",
+      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      img: caldo,
+    },
+    {
+      name: "Ceviche na Taça",
+      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      img: cevichenataca,
+    },
+    {
+      name: "Milho no Copo",
+      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      img: milho,
     },
   ];
   const fotosVisiveis = items.slice(0, showAll);
@@ -123,9 +141,7 @@ export const Menu = () => {
                   className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                <span className="absolute top-5 right-5 font-jp text-primary/80 text-2xl">
-                  {it.jp}
-                </span>
+                <span className="absolute top-5 right-5 font-jp text-primary/80 text-2xl"></span>
               </div>
               <div className="p-7">
                 <h3 className="font-display text-3xl text-foreground">

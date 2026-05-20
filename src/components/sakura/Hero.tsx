@@ -1,8 +1,5 @@
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { ArrowRight } from "lucide-react";
-import { openRest } from "@/lib/open-rest";
-
-const isOpen = openRest();
 
 export const Hero = () => {
   return (
@@ -29,36 +26,6 @@ export const Hero = () => {
           桜・ラウンジ
         </span>
         <span className="h-24 w-px bg-primary/40" />
-      </div>
-
-      <div className="absolute top-20 right-6">
-        <div className="flex flex-col items-center rounded-xl border border-red-500/20 bg-zinc-950/85 px-2 py-1 backdrop-blur-sm shadow-[0_0_20px_rgba(239,68,68,0.08)]">
-          <div className="flex items-center gap-2">
-            <div
-              className={`h-1.5 w-1.5 rounded-full ${isOpen ? "bg-green-400 shadow-[0_0_10px_#4ade80]" : "bg-red-400"}`}
-            />
-
-            <span
-              className={`${isOpen ? "text-green-400" : "text-red-400"} text-sm font-bold font-mono`}
-            >
-              16:00
-            </span>
-
-            <span className="text-zinc-600 text-sm">—</span>
-
-            <span
-              className={`${isOpen ? "text-green-400" : "text-red-400"} text-sm font-bold font-mono`}
-            >
-              00:00
-            </span>
-          </div>
-
-          <span
-            className={`${isOpen ? "text-green-400" : "text-red-400"} text-xs uppercase tracking-[0.2em] mt-2 `}
-          >
-            {isOpen ? "Aberto" : "Fechado"}
-          </span>
-        </div>
       </div>
 
       {/* Content */}
