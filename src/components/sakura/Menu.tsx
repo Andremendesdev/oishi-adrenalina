@@ -1,47 +1,75 @@
-import sushi from "@/assets/menu-sushi.jpg";
-import sashimi from "@/assets/menu-sashimi.jpg";
-import temaki from "@/assets/menu-temaki.jpg";
-import hot from "@/assets/menu-hot.jpg";
-import drinks from "@/assets/menu-drinks.jpg";
+import { useState } from "react";
 
-const items = [
-  {
-    name: "Sushi",
-    jp: "寿司",
-    desc: "Peças clássicas e autorais com peixes selecionados diariamente.",
-    img: "/images/combinado.png",
-  },
-  {
-    name: "barca",
-    jp: "刺身",
-    desc: "Cortes finos de salmão, atum e peixe branco em sua forma mais pura.",
-    img: "/images/barca.png",
-  },
-  {
-    name: "Temaki",
-    jp: "手巻き",
-    desc: "Cones de alga crocante recheados com combinações exclusivas da casa.",
-    img: temaki,
-  },
-  {
-    name: "Pratos Quentes",
-    jp: "温かい料理",
-    desc: "Yakisoba, ramen e robatas preparados na hora pelo nosso chef.",
-    img: hot,
-  },
-  {
-    name: "Drinks",
-    jp: "ドリンク",
-    desc: "Coquetéis autorais com sake, gin japonês e infusões de sakura.",
-    img: "/images/drinks.png",
-  },
-];
+import barca from "@/assets/barca.png";
+import temaki from "@/assets/temaki.jpeg";
+import Nigiri from "@/assets/Nigiri.jpeg";
+import yakssoba from "@/assets/yakssoba.jpeg";
+import strogonoff from "@/assets/strogonoff.jpeg";
+import porcao from "@/assets/porcao.jpeg";
+import nhoque from "@/assets/nhoque.jpeg";
+import macarrao from "@/assets/macarrao.jpeg";
 
 export const Menu = () => {
+  // 1. Volta a começar mostrando apenas 4 itens
+  const [showAll, setShowAll] = useState(4);
+
+  const items = [
+    {
+      name: "temaki",
+      jp: "おいしい",
+      desc: "Cones de alga crocante recheados com os peixes mais frescos do dia.",
+      img: temaki,
+    },
+    {
+      name: "barca",
+      jp: "おいしい",
+      desc: "Combinação clássica de cortes finos selecionados pelo nosso sushiman.",
+      img: barca,
+    },
+    {
+      name: "Nigiri",
+      jp: "おいしい",
+      desc: "Fatias de peixe fresco moldadas perfeitamente sobre arroz temperado.",
+      img: Nigiri,
+    },
+    {
+      name: "Yakssoba",
+      jp: "おいしい",
+      desc: "Tradicional macarrão oriental com legumes frescos e molho artesanal.",
+      img: yakssoba,
+    },
+    {
+      name: "Porções",
+      jp: "おいしい",
+      desc: "Petiscos e acompanhamentos fritos na hora, crocantes e saborosos.",
+      img: porcao,
+    },
+    {
+      name: "Strogonoff",
+      jp: "おいしい",
+      desc: "Clássico strogonoff cremoso servido com arroz branco e batata palha.",
+      img: strogonoff,
+    },
+    {
+      name: "Nhoque",
+      jp: "おいしい",
+      desc: "Massa artesanal leve de batata ao molho suculento da casa.",
+      img: nhoque,
+    },
+    {
+      name: "Massa",
+      jp: "おいしい",
+      desc: "Macarrão perfeitamente cozido al dente com molho especial do chef.",
+      img: macarrao,
+    },
+  ];
+
+  const fotosVisiveis = items.slice(0, showAll);
+
   return (
     <section id="cardapio" className="relative py-32 bg-secondary/40">
       <div className="container">
-        <div className="flex flex-col items-center text-center mb-20 reveal">
+        <div className="flex flex-col items-center text-center mb-20">
           <span className="font-jp text-primary text-sm tracking-[0.4em]">
             お品書き
           </span>
@@ -51,20 +79,20 @@ export const Menu = () => {
           <div className="divider-line w-32 mt-8" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map((it, idx) => (
+        {/* 2. O GRID FECHA AQUI APENAS COM OS CARDS DENTRO */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+          {fotosVisiveis.map((it, idx) => (
             <article
               key={it.name}
-              className="reveal group relative bg-card border border-border/60 overflow-hidden hover:border-primary/60 transition-all duration-700"
-              style={{ transitionDelay: `${idx * 80}ms` }}
+              className="group relative bg-card border border-border/60 overflow-hidden hover:border-primary/60 transition-all duration-700"
             >
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[5/6] overflow-hidden">
                 <img
                   src={it.img}
                   alt={it.name}
                   loading="lazy"
-                  width={800}
-                  height={1000}
+                  width={600}
+                  height={800}
                   className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
@@ -84,6 +112,18 @@ export const Menu = () => {
             </article>
           ))}
         </div>
+
+        {/* 3. O BOTÃO FICA AQUI FORA, CENTRALIZADO E BEM VISÍVEL */}
+        {showAll < items.length && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={() => setShowAll(items.length)}
+              className="px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wider text-sm uppercase rounded-sm"
+            >
+              Ver mais no cardápio
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-import heroImg from "@/assets/hero-restaurant.jpg";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { ArrowRight } from "lucide-react";
 import { openRest } from "@/lib/open-rest";
@@ -14,7 +13,7 @@ export const Hero = () => {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={heroImg}
+          src={"/images/interior.png"}
           alt="Interior do restaurante Sakura Lounge com lanternas vermelhas"
           width={1920}
           height={1080}

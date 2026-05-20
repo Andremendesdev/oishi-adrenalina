@@ -1,8 +1,9 @@
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import g4 from "@/assets/gallery-4.jpg";
 import hero from "@/assets/hero-restaurant.jpg";
+import i1 from "@/assets/interior.jpeg";
+import i2 from "@/assets/interior2.jpeg";
+import i3 from "@/assets/interior3.jpeg";
+import f1 from "@/assets/fora.jpeg";
+import f2 from "@/assets/frente.jpeg";
 
 export const Gallery = () => {
   return (
@@ -21,7 +22,7 @@ export const Gallery = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 grid-rows-2 gap-4 lg:h-[640px]">
           <figure className="reveal relative col-span-2 row-span-2 overflow-hidden group">
             <img
-              src={g1}
+              src={i1}
               alt="Salão do Sakura Lounge com lanternas vermelhas"
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
@@ -33,7 +34,7 @@ export const Gallery = () => {
             style={{ transitionDelay: "100ms" }}
           >
             <img
-              src={g2}
+              src={i2}
               alt="Chef preparando sushi"
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
@@ -44,7 +45,7 @@ export const Gallery = () => {
             style={{ transitionDelay: "180ms" }}
           >
             <img
-              src={g4}
+              src={f1}
               alt="Variedade de sushi"
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
@@ -55,7 +56,7 @@ export const Gallery = () => {
             style={{ transitionDelay: "260ms" }}
           >
             <img
-              src={g3}
+              src={i3}
               alt="Bar do Sakura Lounge"
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
@@ -66,7 +67,7 @@ export const Gallery = () => {
             style={{ transitionDelay: "340ms" }}
           >
             <img
-              src={hero}
+              src={f2}
               alt="Ambiente do restaurante"
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"

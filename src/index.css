@@ -10,7 +10,7 @@
 @layer base {
   :root {
     /* Core dark palette */
-    --background: 0 0% 5%;
+    --background: 0 0% 8%;
     --foreground: 30 20% 94%;
 
     --card: 0 0% 7%;
@@ -50,7 +50,7 @@
     /* Gradients */
     --gradient-hero: linear-gradient(
       180deg,
-      hsl(0 0% 0% / 0.55) 0%,
+      hsl(0 0% 0% / 0.75) 5%,
       hsl(0 0% 3% / 0.85) 60%,
       hsl(0 0% 5%) 100%
     );

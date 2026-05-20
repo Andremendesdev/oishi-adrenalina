@@ -7,7 +7,7 @@ const links = [
   { href: "#cardapio", label: "Cardápio" },
   { href: "#diferenciais", label: "Diferenciais" },
   { href: "#galeria", label: "Galeria" },
-  { href: "#reserva", label: "Reserva" },
+  { href: "#reserva", label: "Mais" },
 ];
 
 export const Navbar = () => {
@@ -58,7 +58,7 @@ export const Navbar = () => {
           href="#reserva"
           className="hidden md:inline-flex items-center text-xs uppercase tracking-[0.25em] text-foreground border border-primary/60 px-5 py-2.5 hover:bg-primary hover:text-primary-foreground transition-all duration-500"
         >
-          Reservar
+          Visite-nos
         </a>
 
         <button
