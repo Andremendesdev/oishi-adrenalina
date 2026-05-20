@@ -25,7 +25,7 @@ export const Menu = () => {
   const items = [
     {
       name: "Temaki",
-      desc: "Cones de alga crocante recheados com os peixes mais frescos do dia.",
+      desc: "Cones de alga crocante recheados com peixes frescos e ingredientes selecionados.",
       img: temaki,
     },
     {
@@ -39,7 +39,7 @@ export const Menu = () => {
       img: Nigiri,
     },
     {
-      name: "Yaksoba",
+      name: "Yakisoba",
       desc: "Tradicional macarrão oriental com legumes frescos e molho artesanal.",
       img: yakssoba,
     },
@@ -50,7 +50,7 @@ export const Menu = () => {
     },
     {
       name: "Drinks",
-      desc: "Petiscos e acompanhamentos fritos na hora, crocantes e saborosos.",
+      desc: "Drinks refrescantes preparados com combinações especiais e apresentação sofisticada.",
       img: drinks,
     },
     {
@@ -65,7 +65,7 @@ export const Menu = () => {
     },
     {
       name: "Massas",
-      desc: "Macarrão perfeitamente cozido al dente com molho especial do chef.",
+      desc: "Massas preparadas al dente com molhos especiais e ingredientes selecionados.",
       img: macarrao,
     },
     {
@@ -90,22 +90,22 @@ export const Menu = () => {
     },
     {
       name: "Anéis de Cebola",
-      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      desc: "Anéis de cebola empanados e fritos até ficarem dourados e crocantes.",
       img: aneis,
     },
     {
       name: "Caldo",
-      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      desc: "Caldo quente e saboroso preparado com ingredientes frescos e tempero especial.",
       img: caldo,
     },
     {
       name: "Ceviche na Taça",
-      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      desc: "Versão sofisticada do ceviche servida na taça com muito frescor e sabor.",
       img: cevichenataca,
     },
     {
       name: "Milho no Copo",
-      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      desc: "Milho cremoso servido quentinho no copo com temperos e acompanhamentos especiais.",
       img: milho,
     },
   ];
@@ -144,7 +144,7 @@ export const Menu = () => {
                 <span className="absolute top-5 right-5 font-jp text-primary/80 text-2xl"></span>
               </div>
               <div className="p-7">
-                <h3 className="font-display text-3xl text-foreground">
+                <h3 className="font-display text-2xl text-foreground">
                   {it.name}
                 </h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
