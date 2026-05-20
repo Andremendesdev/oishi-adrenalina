@@ -8,6 +8,10 @@ import strogonoff from "@/assets/strogonoff.jpeg";
 import porcao from "@/assets/porcao.jpeg";
 import nhoque from "@/assets/nhoque.jpeg";
 import macarrao from "@/assets/macarrao.jpeg";
+import camarao from "@/assets/camarao.jpeg";
+import p1 from "@/assets/p1.jpeg";
+import ceviche from "@/assets/ceviche.jpeg";
+import porcaolinguica from "@/assets/porcaolinguica.jpeg";
 
 export const Menu = () => {
   // 1. Volta a começar mostrando apenas 4 itens
@@ -62,8 +66,31 @@ export const Menu = () => {
       desc: "Macarrão perfeitamente cozido al dente com molho especial do chef.",
       img: macarrao,
     },
+    {
+      name: "Camarão",
+      jp: "おいしい",
+      desc: "Camarões selecionados preparados com temperos especiais e muito sabor.",
+      img: camarao,
+    },
+    {
+      name: "Poke",
+      jp: "おいしい",
+      desc: "Bowl havaiano refrescante com peixes frescos, legumes e molhos especiais.",
+      img: p1,
+    },
+    {
+      name: "Ceviche",
+      jp: "おいしい",
+      desc: "Peixe marinado no limão com cebola roxa, temperos frescos e toque cítrico.",
+      img: ceviche,
+    },
+    {
+      name: "Porção de Linguiça",
+      jp: "おいしい",
+      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
+      img: porcaolinguica,
+    },
   ];
-
   const fotosVisiveis = items.slice(0, showAll);
 
   return (
