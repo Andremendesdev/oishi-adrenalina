@@ -103,8 +103,7 @@ export const Hero = () => {
           </p>
 
           <p className="mt-4 max-w-lg text-muted-foreground text-base leading-relaxed">
-            {heroData?.description ||
-              "Referência em gastronomia em Piraju e região. Ambiente familiar & Pet Friendly 🐾"}
+            {heroData?.description}
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4">
