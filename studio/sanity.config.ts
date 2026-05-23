@@ -16,30 +16,18 @@ const structurePlugin = structureTool({
         S.listItem()
           .title("⚙️ Configurações do Site")
           .child(
-            S.document()
-              .schemaType("siteSettings")
-              .documentId("siteSettings")
+            S.document().schemaType("siteSettings").documentId("siteSettings"),
           ),
         S.listItem()
           .title("🏠 Hero (Topo)")
-          .child(
-            S.document()
-              .schemaType("hero")
-              .documentId("hero")
-          ),
+          .child(S.document().schemaType("hero").documentId("hero")),
         S.listItem()
           .title("📖 Sobre Nós")
-          .child(
-            S.document()
-              .schemaType("about")
-              .documentId("about")
-          ),
+          .child(S.document().schemaType("about").documentId("about")),
         S.listItem()
           .title("📞 CTA Reserva")
           .child(
-            S.document()
-              .schemaType("ctaReserve")
-              .documentId("ctaReserve")
+            S.document().schemaType("ctaReserve").documentId("ctaReserve"),
           ),
         S.divider(),
         // Listas
@@ -55,8 +43,8 @@ export default defineConfig({
 
   // ⚠️ Preencha com seu projectId do Sanity
   // Crie em: https://www.sanity.io/manage
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "YOUR_PROJECT_ID",
-  dataset: process.env.SANITY_STUDIO_DATASET || "production",
+  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || "okxbi3pe",
+  dataset: import.meta.env.VITE_SANITY_DATASET || "production",
 
   plugins: [structurePlugin, visionTool()],
 
