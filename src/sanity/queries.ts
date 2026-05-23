@@ -26,6 +26,8 @@ export const heroQuery = `*[_type == "hero"][0]{
   secondaryLinkText,
   "backgroundImage": backgroundImage.asset->url
 }`;
+// Adicione isto ao seu arquivo de queries
+export const showsQuery = `*[_type == "show"] | order(date asc)`;
 
 // About section (singleton)
 export const aboutQuery = `*[_type == "about"][0]{

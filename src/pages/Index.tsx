@@ -9,6 +9,7 @@ import { Footer } from "@/components/sakura/Footer";
 import { WhatsAppFab } from "@/components/sakura/WhatsAppFab";
 import { PetalRain } from "@/components/sakura/PetalRain";
 import { useReveal } from "@/hooks/useReveal";
+import { LiveShows } from "@/components/sakura/LiveShows";
 
 const Index = () => {
   useReveal();
@@ -17,6 +18,7 @@ const Index = () => {
       <PetalRain />
       <Navbar />
       <Hero />
+      <LiveShows />
       <About />
       <Menu />
       <Features />
