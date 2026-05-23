@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSanityData } from "@/hooks/useSanityData";
+import { siteSettingsQuery } from "@/sanity/queries";
+
+// 1. Tipagem correta para os dados do Sanity
+interface SiteSettingsData {
+  openHour?: number;
+  closeHour?: number;
+  restaurantName?: string;
+}
 
 const links = [
   { href: "#sobre", label: "Sobre" },
@@ -15,14 +24,40 @@ export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  const { data: settings } = useSanityData<SiteSettingsData>(
+    "siteSettings",
+    siteSettingsQuery,
+  );
+
+  const openHour = settings?.openHour ?? 16;
+  const closeHour = settings?.closeHour ?? 24; // 24 = meia-noite
+  const restaurantName = settings?.restaurantName || "Oishi";
+
+  // Formatar hora para exibição, ex: 16 -> 16:00
+  const formatHour = (h: number) => {
+    if (h === 24 || h === 0) return "00:00";
+    return `${h.toString().padStart(2, "0")}:00`;
+  };
+
   useEffect(() => {
     const checkOpenStatus = () => {
       const currentHour = new Date().getHours();
-      setIsOpen(currentHour >= 16 && currentHour < 24);
+      let currentlyOpen = false;
+
+      // 2. Lógica corrigida para suportar expedientes que viram a madrugada
+      if (openHour < closeHour) {
+        // Horário normal (ex: 10:00 às 22:00)
+        currentlyOpen = currentHour >= openHour && currentHour < closeHour;
+      } else {
+        // Horário que passa da meia noite (ex: 18:00 às 02:00)
+        currentlyOpen = currentHour >= openHour || currentHour < closeHour;
+      }
+
+      setIsOpen(currentlyOpen);
     };
 
     checkOpenStatus();
-    const intervalId = setInterval(checkOpenStatus, 60000);
+    const intervalId = setInterval(checkOpenStatus, 60000); // Checa a cada minuto
 
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -32,7 +67,7 @@ export const Navbar = () => {
       window.removeEventListener("scroll", onScroll);
       clearInterval(intervalId);
     };
-  }, []);
+  }, [openHour, closeHour]);
 
   return (
     <header
@@ -47,7 +82,7 @@ export const Navbar = () => {
         {/* Lado Esquerdo: Logo */}
         <a href="#top" className="flex items-baseline gap-2 group">
           <span className="font-display text-2xl tracking-[0.25em] text-foreground">
-            Oishi
+            {restaurantName.split(" ")[0]}
           </span>
           <span className="font-jp text-sm text-primary tracking-widest">
             桜
@@ -71,7 +106,7 @@ export const Navbar = () => {
 
         {/* Lado Direito: Status + Botão Visite-nos + Menu Mobile */}
         <div className="flex items-center gap-4">
-          {/* Caixa de Aberto/Fechado (Sem o "fixed top-20") */}
+          {/* Caixa de Aberto/Fechado */}
           <div
             className="flex text-xs uppercase tracking-[0.2em] font-body
            flex-col items-center rounded-xl border border-red-500/20 bg-transparent px-2 py-1 backdrop-blur-sm shadow-[0_0_20px_rgba(239,68,68,0.08)] scale-90 sm:scale-100 origin-right"
@@ -83,13 +118,13 @@ export const Navbar = () => {
               <span
                 className={`${isOpen ? "text-white" : "text-red-400"} text-sm font-bold font-mono`}
               >
-                16:00
+                {formatHour(openHour)}
               </span>
               <span className="text-zinc-600 text-sm">—</span>
               <span
                 className={`${isOpen ? "text-white" : "text-red-400"} text-sm font-bold font-mono`}
               >
-                00:00
+                {formatHour(closeHour)}
               </span>
             </div>
             <span

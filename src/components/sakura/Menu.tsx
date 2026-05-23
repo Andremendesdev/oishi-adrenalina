@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSanityData } from "@/hooks/useSanityData";
+import { menuItemsQuery } from "@/sanity/queries";
 
 import barca from "@/assets/barca.png";
 import temaki from "@/assets/temaki.jpeg";
@@ -18,11 +20,25 @@ import caldo from "@/assets/caldo.jpeg";
 import cevichenataca from "@/assets/cevichenataca.jpeg";
 import milho from "@/assets/milho.jpeg";
 
-export const Menu = () => {
-  // 1. Volta a começar mostrando apenas 4 itens
-  const [showAll, setShowAll] = useState(4);
+interface MenuItem {
+  name: string;
+  desc: string;
+  img: string;
+}
 
-  const items = [
+interface SanityMenuItem {
+  name: string;
+  description: string;
+  image?: string;
+}
+
+export const Menu = () => {
+  const { data: sanityItems } = useSanityData<SanityMenuItem[]>(
+    "menuItems",
+    menuItemsQuery,
+  );
+
+  const fallbackItems: MenuItem[] = [
     {
       name: "Temaki",
       desc: "Cones de alga crocante recheados com peixes frescos e ingredientes selecionados.",
@@ -109,7 +125,33 @@ export const Menu = () => {
       img: milho,
     },
   ];
-  const fotosVisiveis = items.slice(0, showAll);
+
+  // Mapear itens do Sanity para o mesmo formato
+  const sanityMappedItems: MenuItem[] | undefined = sanityItems?.map((it) => ({
+    name: it.name,
+    desc: it.description,
+    // Usa a imagem padrão 'barca' se a imagem do Sanity não for uma string válida
+    img: typeof it.image === "string" ? it.image : barca,
+  }));
+
+  const finalItems = sanityMappedItems?.length
+    ? sanityMappedItems
+    : fallbackItems;
+
+  // 6 itens garante que o grid (3 ou 2 colunas) nunca fique com espaços vazios na última linha inicial
+  const INITIAL_ITEMS = 6;
+  const [showAll, setShowAll] = useState(INITIAL_ITEMS);
+  const fotosVisiveis = finalItems.slice(0, showAll);
+
+  const isShowingAll = showAll >= finalItems.length;
+
+  const toggleItems = () => {
+    if (isShowingAll) {
+      setShowAll(INITIAL_ITEMS);
+    } else {
+      setShowAll(finalItems.length);
+    }
+  };
 
   return (
     <section id="cardapio" className="relative py-32 bg-secondary/40">
@@ -124,11 +166,10 @@ export const Menu = () => {
           <div className="divider-line w-32 mt-8" />
         </div>
 
-        {/* 2. O GRID FECHA AQUI APENAS COM OS CARDS DENTRO */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
           {fotosVisiveis.map((it, idx) => (
             <article
-              key={it.name}
+              key={`${it.name}-${idx}`}
               className="group relative bg-card border border-border/60 overflow-hidden hover:border-primary/60 transition-all duration-700"
             >
               <div className="relative aspect-[5/6] overflow-hidden">
@@ -141,7 +182,6 @@ export const Menu = () => {
                   className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                <span className="absolute top-5 right-5 font-jp text-primary/80 text-2xl"></span>
               </div>
               <div className="p-7">
                 <h3 className="font-display text-2xl text-foreground">
@@ -156,14 +196,13 @@ export const Menu = () => {
           ))}
         </div>
 
-        {/* 3. O BOTÃO FICA AQUI FORA, CENTRALIZADO E BEM VISÍVEL */}
-        {showAll < items.length && (
+        {finalItems.length > INITIAL_ITEMS && (
           <div className="flex justify-center mt-12">
             <button
-              onClick={() => setShowAll(items.length)}
+              onClick={toggleItems}
               className="px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wider text-sm uppercase rounded-sm"
             >
-              Ver mais no cardápio
+              {isShowingAll ? "Ver menos" : "Ver mais no cardápio"}
             </button>
           </div>
         )}

@@ -1,19 +1,32 @@
 import { Instagram, MapPin, Phone, Clock } from "lucide-react";
+import { useSanityData } from "@/hooks/useSanityData";
+import { siteSettingsQuery } from "@/sanity/queries";
 
 export const Footer = () => {
+  const { data: settings } = useSanityData<any>("siteSettings", siteSettingsQuery);
+
+  const fallbackAddress = "Rua 13 de Maio, 705 — Piraju-SP";
+  const fallbackPhone = "(14) 99775-7180";
+  const fallbackInstagram = "@oishiadrenalina";
+  const fallbackHoursLabel = "Seg — Sáb";
+  const fallbackHoursDisplay = "16h às 00h";
+  
+  const currentYear = new Date().getFullYear();
+  const fallbackCopyright = `© ${currentYear} Oishi Restaurante. Todos os direitos reservados.`;
+
   return (
     <footer className="border-t border-border/60 py-16">
       <div className="container grid md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.25em]">
-              Oishi Adrenalina
+              {settings?.restaurantName || "Oishi Adrenalina"}
             </span>
             <span className="font-jp text-primary">桜</span>
           </div>
           <p className="mt-5 max-w-sm text-sm text-muted-foreground leading-relaxed">
-            Restaurante e bar japonês onde tradição, sabor e sofisticação se
-            encontram em cada detalhe.
+            {settings?.tagline || 
+              "Restaurante e bar japonês onde tradição, sabor e sofisticação se encontram em cada detalhe."}
           </p>
         </div>
 
@@ -24,15 +37,15 @@ export const Footer = () => {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-3">
               <MapPin size={14} className="mt-1 text-primary" />
-              Rua 13 de Maio, 705 — Piraju-SP
+              {settings?.address || fallbackAddress}
             </li>
             <li className="flex items-center gap-3">
               <Phone size={14} className="text-primary" />
-              (14) 99775-7180
+              {settings?.phone || fallbackPhone}
             </li>
             <li className="flex items-center gap-3">
               <Instagram size={14} className="text-primary" />
-              @oishiadrenalina
+              {settings?.instagram || fallbackInstagram}
             </li>
           </ul>
         </div>
@@ -45,9 +58,9 @@ export const Footer = () => {
             <li className="flex items-start gap-3">
               <Clock size={14} className="mt-1 text-primary" />
               <span>
-                Seg — Sáb
+                {settings?.hoursLabel || fallbackHoursLabel}
                 <br />
-                16h às 00h
+                {settings?.hoursDisplay || fallbackHoursDisplay}
               </span>
             </li>
           </ul>
@@ -56,8 +69,7 @@ export const Footer = () => {
 
       <div className="container mt-12 pt-8 border-t border-border/60 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground">
         <p>
-          © {new Date().getFullYear()} Oishi Restaurante. Todos os direitos
-          reservados.
+          {settings?.copyrightText || fallbackCopyright}
         </p>
         <p className="font-jp tracking-widest">桜・ラウンジ</p>
       </div>
