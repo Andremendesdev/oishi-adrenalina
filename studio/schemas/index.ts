@@ -5,10 +5,12 @@ import menuItem from "./menuItem";
 import feature from "./feature";
 import galleryImage from "./galleryImage";
 import ctaReserve from "./ctaReserve";
+import liveshows from "./liveshows";
 
 export const schemaTypes = [
   siteSettings,
   hero,
+  liveshows,
   about,
   menuItem,
   feature,

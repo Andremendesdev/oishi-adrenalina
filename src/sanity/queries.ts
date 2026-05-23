@@ -27,7 +27,13 @@ export const heroQuery = `*[_type == "hero"][0]{
   "backgroundImage": backgroundImage.asset->url
 }`;
 // Adicione isto ao seu arquivo de queries
-export const showsQuery = `*[_type == "show"] | order(date asc)`;
+export const showsQuery = `*[_type == "liveshows"] | order(date asc) {
+  artist,
+  date,
+  time,
+  description,
+  "imageUrl": image.asset->url
+}`;
 
 // About section (singleton)
 export const aboutQuery = `*[_type == "about"][0]{
