@@ -12,6 +12,7 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
   openHour,
   closeHour,
   hoursLabel,
+  hoursDisplay,
   copyrightText
 }`;
 

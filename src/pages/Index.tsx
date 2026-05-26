@@ -11,6 +11,7 @@ import { PetalRain } from "@/components/sakura/PetalRain";
 import { useReveal } from "@/hooks/useReveal";
 import { LiveShows } from "@/components/sakura/LiveShows";
 import { Reviews } from "@/components/sakura/Reviews";
+import { Location } from "@/components/sakura/Location";
 
 const Index = () => {
   useReveal();
@@ -26,6 +27,7 @@ const Index = () => {
       <Gallery />
       <CtaReserve />
       <Reviews />
+      <Location />
       <Footer />
       <WhatsAppFab />
     </main>
