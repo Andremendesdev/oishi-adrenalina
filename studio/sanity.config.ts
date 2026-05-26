@@ -32,6 +32,7 @@ const structurePlugin = structureTool({
         S.divider(),
         // Listas
         S.documentTypeListItem("menuItem").title("🍣 Cardápio"),
+        S.documentTypeListItem("liveshows").title("🎵 Agenda de Shows"),
         S.documentTypeListItem("feature").title("✨ Diferenciais"),
         S.documentTypeListItem("galleryImage").title("🖼️ Galeria"),
       ]),

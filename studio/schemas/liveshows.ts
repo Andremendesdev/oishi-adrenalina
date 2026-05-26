@@ -16,8 +16,7 @@ export default defineType({
       name: "date",
       title: "Data do Show",
       type: "string",
-      description:
-        "Ex: 24 AGO (Como é um texto curto, você pode escrever o formato exato que quer na tela)",
+      description: "Ex: 24 AGO",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -30,6 +29,7 @@ export default defineType({
       name: "description",
       title: "Descrição",
       type: "text",
+      rows: 3,
       description: "Breve descrição do show para aparecer no card.",
       validation: (Rule) => Rule.required(),
     }),
@@ -38,11 +38,25 @@ export default defineType({
       title: "Foto da Atração",
       type: "image",
       options: {
-        hotspot: true, // Permite ajustar o corte da foto direto no painel do Sanity
+        hotspot: true,
       },
     }),
+    defineField({
+      name: "order",
+      title: "Ordem de Exibição",
+      type: "number",
+      description: "Número para ordenar na página (menor = primeiro)",
+      validation: (Rule) => Rule.required().min(0),
+      initialValue: 0,
+    }),
   ],
-  // Isso aqui deixa a lista do Sanity bonitinha com a foto e data ao lado do nome
+  orderings: [
+    {
+      title: "Ordem de Exibição",
+      name: "orderAsc",
+      by: [{ field: "order", direction: "asc" }],
+    },
+  ],
   preview: {
     select: {
       title: "artist",
