@@ -3,16 +3,19 @@ import { useSanityData } from "@/hooks/useSanityData";
 import { siteSettingsQuery } from "@/sanity/queries";
 
 export const Footer = () => {
-  const { data: settings } = useSanityData<any>("siteSettings", siteSettingsQuery);
+  const { data: settings } = useSanityData<any>(
+    "siteSettings",
+    siteSettingsQuery,
+  );
 
   const fallbackAddress = "Rua 13 de Maio, 705 — Piraju-SP";
   const fallbackPhone = "(14) 99775-7180";
   const fallbackInstagram = "@oishiadrenalina";
   const fallbackHoursLabel = "Seg — Sáb";
   const fallbackHoursDisplay = "16h às 00h";
-  
+
   const currentYear = new Date().getFullYear();
-  const fallbackCopyright = `© ${currentYear} Oishi Restaurante. Todos os direitos reservados.`;
+  const fallbackCopyright = `© 2010 Oishi Restaurante. Todos os direitos reservados.`;
 
   return (
     <footer className="border-t border-border/60 py-16">
@@ -25,7 +28,7 @@ export const Footer = () => {
             <span className="font-jp text-primary">桜</span>
           </div>
           <p className="mt-5 max-w-sm text-sm text-muted-foreground leading-relaxed">
-            {settings?.tagline || 
+            {settings?.tagline ||
               "Restaurante e bar japonês onde tradição, sabor e sofisticação se encontram em cada detalhe."}
           </p>
         </div>
@@ -68,9 +71,7 @@ export const Footer = () => {
       </div>
 
       <div className="container mt-12 pt-8 border-t border-border/60 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground">
-        <p>
-          {settings?.copyrightText || fallbackCopyright}
-        </p>
+        <p>{settings?.copyrightText || fallbackCopyright}</p>
         <p className="font-jp tracking-widest">桜・ラウンジ</p>
       </div>
     </footer>
