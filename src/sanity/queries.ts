@@ -28,7 +28,8 @@ export const heroQuery = `*[_type == "hero"][0]{
   "backgroundImage": backgroundImage.asset->url
 }`;
 // Adicione isto ao seu arquivo de queries
-export const showsQuery = `*[_type == "liveshows"] | order(order asc) {
+export const showsQuery = `*[_type == "liveshows"] | order(coalesce(order, 999) asc) {
+  _id,
   artist,
   date,
   time,
@@ -43,15 +44,6 @@ export const aboutQuery = `*[_type == "about"][0]{
   paragraph1,
   paragraph2,
   stats[]{ number, label }
-}`;
-
-// Menu items (lista ordenada) — legado
-export const menuItemsQuery = `*[_type == "menuItem"] | order(order asc){
-  _id,
-  name,
-  description,
-  "image": image.asset->url,
-  order
 }`;
 
 // Categorias do cardápio com subitens

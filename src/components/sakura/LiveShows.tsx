@@ -1,8 +1,9 @@
-import { Calendar, Clock, Ticket } from "lucide-react";
+import { Calendar, Clock, Loader2, Ticket } from "lucide-react";
 import { useSanityData } from "@/hooks/useSanityData";
 import { showsQuery } from "@/sanity/queries";
 
 interface ShowItem {
+  _id: string;
   artist: string;
   date: string;
   time: string;
@@ -10,17 +11,22 @@ interface ShowItem {
   imageUrl?: string;
 }
 
-export const LiveShows = () => {
-  const { data: shows } = useSanityData<ShowItem[]>("shows", showsQuery);
+const SHOWS_FETCH_OPTIONS = {
+  useCdn: false,
+  staleTime: 30_000,
+  refetchOnWindowFocus: true,
+} as const;
 
-  // A lista oficial agora é estritamente o que vem do Sanity.
-  // Se não vier nada (ainda carregando ou vazio), assumimos um array vazio [].
-  const showsList = shows || [];
+export const LiveShows = () => {
+  const { data: shows, isLoading, isError, error } = useSanityData<
+    ShowItem[]
+  >("shows", showsQuery, undefined, SHOWS_FETCH_OPTIONS);
+
+  const showsList = shows ?? [];
 
   return (
     <section id="programacao" className="relative py-32 bg-secondary/20">
       <div className="container">
-        {/* Cabeçalho da Seção */}
         <div className="grid lg:grid-cols-12 gap-16 mb-20">
           <div className="lg:col-span-5 reveal">
             <span className="font-jp text-primary text-sm tracking-[0.4em]">
@@ -37,24 +43,44 @@ export const LiveShows = () => {
           </p>
         </div>
 
-        {/* Renderização Condicional: Tem show na lista? */}
-        {showsList.length > 0 ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-24 text-muted-foreground">
+            <Loader2 className="w-8 h-8 text-primary animate-spin mb-4" />
+            <p className="text-sm uppercase tracking-[0.3em]">
+              Carregando programação
+            </p>
+          </div>
+        ) : isError ? (
+          <div className="flex flex-col items-center justify-center py-24 bg-background/50 border border-border/50 text-center reveal">
+            <Calendar className="w-12 h-12 text-primary/40 mb-6" />
+            <h3 className="font-display text-3xl mb-3">
+              Não foi possível carregar a agenda
+            </h3>
+            <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">
+              Tente recarregar a página em alguns instantes.
+            </p>
+            {import.meta.env.DEV && error && (
+              <p className="mt-4 text-xs text-red-400/80 font-mono max-w-lg break-all">
+                {error.message}
+              </p>
+            )}
+          </div>
+        ) : showsList.length > 0 ? (
           <div
             className={`grid gap-px bg-border/60 mx-auto ${
               showsList.length === 1
-                ? "max-w-md grid-cols-1" // 1 show: centralizado com tamanho contido
+                ? "max-w-md grid-cols-1"
                 : showsList.length === 2
-                  ? "max-w-5xl sm:grid-cols-2" // 2 shows: lado a lado centralizados
-                  : "sm:grid-cols-2 lg:grid-cols-3 w-full" // 3+ shows: ocupa toda a largura em 3 colunas
+                  ? "max-w-5xl sm:grid-cols-2"
+                  : "sm:grid-cols-2 lg:grid-cols-3 w-full"
             }`}
           >
             {showsList.map((show, i) => (
               <div
-                key={i}
+                key={show._id}
                 className="reveal bg-background group flex flex-col overflow-hidden transition-colors duration-500"
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                {/* Cabeçalho do Card (Imagem) */}
                 <div className="relative h-64 w-full overflow-hidden">
                   <img
                     src={show.imageUrl || "/placeholder-image.jpg"}
@@ -62,10 +88,8 @@ export const LiveShows = () => {
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"
                     loading="lazy"
                   />
-                  {/* Degradê sobre a imagem para não ficar muito claro */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/30 opacity-90" />
 
-                  {/* Badge de Data/Hora (Estilo Vidro/Blur) */}
                   <div className="absolute top-5 left-5 bg-background/80 backdrop-blur-md border border-white/10 p-2.5 flex items-center gap-3">
                     <div className="flex h-8 w-8 items-center justify-center bg-primary/20 text-primary">
                       <Calendar size={14} />
@@ -81,9 +105,7 @@ export const LiveShows = () => {
                   </div>
                 </div>
 
-                {/* Corpo do Card (Textos) */}
                 <div className="p-8 flex flex-col flex-grow relative">
-                  {/* Linha decorativa no topo do texto */}
                   <div className="absolute top-0 left-8 w-12 h-0.5 bg-primary/30 group-hover:w-24 group-hover:bg-primary transition-all duration-500" />
 
                   <h3 className="font-display text-3xl mt-2 mb-3 group-hover:text-primary transition-colors duration-300">
@@ -102,7 +124,6 @@ export const LiveShows = () => {
             ))}
           </div>
         ) : (
-          /* Estado Vazio: O que aparece se o cliente deletar tudo no Sanity */
           <div className="flex flex-col items-center justify-center py-24 bg-background/50 border border-border/50 text-center reveal">
             <Calendar className="w-12 h-12 text-primary/40 mb-6" />
             <h3 className="font-display text-3xl mb-3">
