@@ -28,7 +28,7 @@ const structurePlugin = structureTool({
             S.document().schemaType("ctaReserve").documentId("ctaReserve"),
           ),
         S.divider(),
-        S.documentTypeListItem("menuItem").title("🍣 Cardápio"),
+        S.documentTypeListItem("menuCategory").title("🍽️ Categorias do Cardápio"),
         S.documentTypeListItem("feature").title("✨ Diferenciais"),
         S.documentTypeListItem("galleryImage").title("🖼️ Galeria"),
       ]),

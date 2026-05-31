@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import StudioPage from "./pages/Studio.tsx";
+import Cardapio from "./pages/Cardapio.tsx";
+import Category from "./pages/Category.tsx";
 
 
 const queryClient = new QueryClient();
@@ -21,6 +23,8 @@ const App = () => (
           {/* Sanity Admin Route */}
           <Route path="/oishi-admin-painel/*" element={<StudioPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/cardapio" element={<Cardapio />} />
+          <Route path="/categoria/:slug" element={<Category />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

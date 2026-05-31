@@ -45,13 +45,27 @@ export const aboutQuery = `*[_type == "about"][0]{
   stats[]{ number, label }
 }`;
 
-// Menu items (lista ordenada)
+// Menu items (lista ordenada) — legado
 export const menuItemsQuery = `*[_type == "menuItem"] | order(order asc){
   _id,
   name,
   description,
   "image": image.asset->url,
   order
+}`;
+
+// Categorias do cardápio com subitens
+export const menuCategoriesQuery = `*[_type == "menuCategory"] | order(order asc){
+  _id,
+  name,
+  "slug": slug.current,
+  description,
+  "image": image.asset->url,
+  order,
+  items[]{
+    name,
+    description
+  }
 }`;
 
 // Features / diferenciais (lista ordenada)

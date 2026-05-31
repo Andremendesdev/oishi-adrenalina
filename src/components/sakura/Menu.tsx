@@ -1,162 +1,53 @@
-import { useState } from "react";
 import { useSanityData } from "@/hooks/useSanityData";
-import { menuItemsQuery } from "@/sanity/queries";
+import { menuCategoriesQuery } from "@/sanity/queries";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { fallbackCategories, MenuCategory } from "@/data/menuData";
 
-import barca from "@/assets/barca.png";
-import temaki from "@/assets/temaki.jpeg";
-import Nigiri from "@/assets/Nigiri.jpeg";
-import yakssoba from "@/assets/yakssoba.jpeg";
-import strogonoff from "@/assets/strogonoff.jpeg";
-import porcao from "@/assets/porcao.jpeg";
-import nhoque from "@/assets/nhoque.jpeg";
-import macarrao from "@/assets/macarrao.jpeg";
-import camarao from "@/assets/camarao.jpeg";
-import p1 from "@/assets/p1.jpeg";
-import ceviche from "@/assets/ceviche.jpeg";
-import porcaolinguica from "@/assets/porcaolinguica.jpeg";
-import aneis from "@/assets/aneis.jpeg";
-import drinks from "@/assets/drinks.png";
-import caldo from "@/assets/caldo.jpeg";
-import cevichenataca from "@/assets/cevichenataca.jpeg";
-import milho from "@/assets/milho.jpeg";
-
-interface MenuItem {
+interface SanityCategory {
+  _id: string;
   name: string;
-  desc: string;
-  img: string;
-}
-
-interface SanityMenuItem {
-  name: string;
+  slug: string;
   description: string;
   image?: string;
+  order: number;
+  items?: { name: string; description?: string }[];
 }
 
-export const Menu = () => {
-  const { data: sanityItems } = useSanityData<SanityMenuItem[]>(
-    "menuItems",
-    menuItemsQuery,
+interface MenuProps {
+  isFullPage?: boolean;
+}
+
+export const Menu = ({ isFullPage = false }: MenuProps) => {
+  const { data: sanityCategories } = useSanityData<SanityCategory[]>(
+    "menuCategories",
+    menuCategoriesQuery,
   );
 
-  const fallbackItems: MenuItem[] = [
-    {
-      name: "Temaki",
-      desc: "Cones de alga crocante recheados com peixes frescos e ingredientes selecionados.",
-      img: temaki,
-    },
-    {
-      name: "Barca",
-      desc: "Combinação clássica de cortes finos selecionados pelo nosso sushiman.",
-      img: barca,
-    },
-    {
-      name: "Nigiri",
-      desc: "Fatias de peixe fresco moldadas perfeitamente sobre arroz temperado.",
-      img: Nigiri,
-    },
-    {
-      name: "Yakisoba",
-      desc: "Tradicional macarrão oriental com legumes frescos e molho artesanal.",
-      img: yakssoba,
-    },
-    {
-      name: "Porções",
-      desc: "Petiscos e acompanhamentos fritos na hora, crocantes e saborosos.",
-      img: porcao,
-    },
-    {
-      name: "Drinks",
-      desc: "Drinks refrescantes preparados com combinações especiais e apresentação sofisticada.",
-      img: drinks,
-    },
-    {
-      name: "Strogonoff",
-      desc: "Clássico strogonoff cremoso servido com arroz branco e batata palha.",
-      img: strogonoff,
-    },
-    {
-      name: "Nhoque",
-      desc: "Massa artesanal leve de batata ao molho suculento da casa.",
-      img: nhoque,
-    },
-    {
-      name: "Massas",
-      desc: "Massas preparadas al dente com molhos especiais e ingredientes selecionados.",
-      img: macarrao,
-    },
-    {
-      name: "Camarão",
-      desc: "Camarões selecionados preparados com temperos especiais e muito sabor.",
-      img: camarao,
-    },
-    {
-      name: "Poke",
-      desc: "Bowl havaiano refrescante com peixes frescos, legumes e molhos especiais.",
-      img: p1,
-    },
-    {
-      name: "Ceviche",
-      desc: "Peixe marinado no limão com cebola roxa, temperos frescos e toque cítrico.",
-      img: ceviche,
-    },
-    {
-      name: "Porção de Linguiça",
-      desc: "Linguiça grelhada na medida certa, servida quentinha e cheia de sabor.",
-      img: porcaolinguica,
-    },
-    {
-      name: "Anéis de Cebola",
-      desc: "Anéis de cebola empanados e fritos até ficarem dourados e crocantes.",
-      img: aneis,
-    },
-    {
-      name: "Caldo",
-      desc: "Caldo quente e saboroso preparado com ingredientes frescos e tempero especial.",
-      img: caldo,
-    },
-    {
-      name: "Ceviche na Taça",
-      desc: "Versão sofisticada do ceviche servida na taça com muito frescor e sabor.",
-      img: cevichenataca,
-    },
-    {
-      name: "Milho no Copo",
-      desc: "Milho cremoso servido quentinho no copo com temperos e acompanhamentos especiais.",
-      img: milho,
-    },
-  ];
+  // Mapear categorias do Sanity para o formato local
+  const sanityMapped: MenuCategory[] | undefined = sanityCategories?.length
+    ? sanityCategories.map((cat) => ({
+        id: cat.slug,
+        name: cat.name,
+        desc: cat.description || "",
+        img: cat.image || "",
+        items: (cat.items || []).map((item) => ({
+          name: item.name,
+          desc: item.description,
+        })),
+      }))
+    : undefined;
 
-  // Mapear itens do Sanity para o mesmo formato
-  const sanityMappedItems: MenuItem[] | undefined = sanityItems?.map((it) => ({
-    name: it.name,
-    desc: it.description,
-    // Usa a imagem padrão 'barca' se a imagem do Sanity não for uma string válida
-    img: typeof it.image === "string" ? it.image : barca,
-  }));
+  const finalItems = sanityMapped || fallbackCategories;
 
-  const finalItems = sanityMappedItems?.length
-    ? sanityMappedItems
-    : fallbackItems;
-
-  // 6 itens garante que o grid (3 ou 2 colunas) nunca fique com espaços vazios na última linha inicial
-  const INITIAL_ITEMS = 6;
-  const [showAll, setShowAll] = useState(INITIAL_ITEMS);
-  const fotosVisiveis = finalItems.slice(0, showAll);
-
-  const isShowingAll = showAll >= finalItems.length;
-
-  const toggleItems = () => {
-    if (isShowingAll) {
-      setShowAll(INITIAL_ITEMS);
-    } else {
-      setShowAll(finalItems.length);
-    }
-  };
+  // 4 itens para o preview na home
+  const INITIAL_ITEMS = 4;
+  const fotosVisiveis = isFullPage ? finalItems : finalItems.slice(0, INITIAL_ITEMS);
 
   return (
-    <section id="cardapio" className="relative py-32 bg-secondary/40">
+    <section id="cardapio" className="relative py-16 bg-secondary/40">
       <div className="container">
-        <div className="flex flex-col items-center text-center mb-20">
+        <div className="flex flex-col items-center text-center mb-12">
           <span className="font-jp text-primary text-sm tracking-[0.4em]">
             お品書き
           </span>
@@ -168,42 +59,47 @@ export const Menu = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
           {fotosVisiveis.map((it, idx) => (
-            <article
-              key={`${it.name}-${idx}`}
-              className="group relative bg-card border border-border/60 overflow-hidden hover:border-primary/60 transition-all duration-700"
-            >
-              <div className="relative aspect-[5/6] overflow-hidden">
-                <img
-                  src={it.img}
-                  alt={it.name}
-                  loading="lazy"
-                  width={600}
-                  height={800}
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-              </div>
-              <div className="p-7">
-                <h3 className="font-display text-2xl text-foreground">
-                  {it.name}
-                </h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {it.desc}
-                </p>
-                <div className="mt-5 h-px w-10 bg-primary/60 transition-all duration-500 group-hover:w-20" />
-              </div>
-            </article>
+            <Link key={`${it.id}-${idx}`} to={`/categoria/${it.id}`} className="block group">
+              <article
+                className="relative h-full bg-card border border-border/60 overflow-hidden hover:border-primary/60 transition-all duration-700"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={it.img}
+                    alt={it.name}
+                    loading="lazy"
+                    width={600}
+                    height={800}
+                    className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                </div>
+                <div className="p-7">
+                  <h3 className="font-display text-2xl text-foreground">
+                    {it.name}
+                  </h3>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {it.desc}
+                  </p>
+                  <div className="mt-5 pt-5 border-t border-border/50 flex items-center justify-between">
+                    <span className="text-primary text-sm font-medium uppercase tracking-wider group-hover:text-primary/80 transition-colors flex items-center gap-2">
+                      Ver opções <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
 
-        {finalItems.length > INITIAL_ITEMS && (
+        {!isFullPage && finalItems.length > INITIAL_ITEMS && (
           <div className="flex justify-center mt-12">
-            <button
-              onClick={toggleItems}
-              className="px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wider text-sm uppercase rounded-sm"
+            <Link
+              to="/cardapio"
+              className="px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wider text-sm uppercase rounded-sm inline-block"
             >
-              {isShowingAll ? "Ver menos" : "Ver mais no cardápio"}
-            </button>
+              Ver todos no cardápio
+            </Link>
           </div>
         )}
       </div>

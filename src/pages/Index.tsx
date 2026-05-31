@@ -20,9 +20,9 @@ const Index = () => {
       <PetalRain />
       <Navbar />
       <Hero />
+      <Menu />
       <LiveShows />
       <About />
-      <Menu />
       <Features />
       <Gallery />
       <CtaReserve />
