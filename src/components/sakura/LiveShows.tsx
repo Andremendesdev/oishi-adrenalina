@@ -1,6 +1,7 @@
 import { Calendar, Clock, Loader2, Ticket } from "lucide-react";
 import { useSanityData } from "@/hooks/useSanityData";
 import { showsQuery } from "@/sanity/queries";
+import fallbackShowImage from "@/assets/interior.jpeg";
 
 interface ShowItem {
   _id: string;
@@ -83,7 +84,7 @@ export const LiveShows = () => {
               >
                 <div className="relative h-64 w-full overflow-hidden">
                   <img
-                    src={show.imageUrl || "/placeholder-image.jpg"}
+                    src={show.imageUrl || fallbackShowImage}
                     alt={show.artist}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"
                     loading="lazy"
