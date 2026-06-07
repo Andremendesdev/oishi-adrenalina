@@ -16,16 +16,20 @@ const PETAL_COUNT = 10;
 export const PetalRain = () => {
   const petals = useMemo<Petal[]>(
     () =>
-      Array.from({ length: PETAL_COUNT }, (_, i) => ({
-        id: i,
-        left: Math.random() * 96 + 2,
-        delay: Math.random() * 16,
-        duration: 16 + Math.random() * 18,
-        size: 8 + Math.random() * 13,
-        opacity: 0.08 + Math.random() * 0.18,
-        hue: 338 + Math.random() * 22,
-        drift: (Math.random() - 0.5) * 55,
-      })),
+      Array.from({ length: PETAL_COUNT }, (_, i) => {
+        const duration = 10 + Math.random() * 8;
+        return {
+          id: i,
+          left: Math.random() * 96 + 2,
+          // Delay negativo = pétala já em queda ao carregar a página
+          delay: -(Math.random() * duration),
+          duration,
+          size: 8 + Math.random() * 13,
+          opacity: 0.08 + Math.random() * 0.18,
+          hue: 338 + Math.random() * 22,
+          drift: (Math.random() - 0.5) * 55,
+        };
+      }),
     [],
   );
 
@@ -37,7 +41,7 @@ export const PetalRain = () => {
       {petals.map((p) => (
         <span
           key={p.id}
-          className="absolute top-0 block animate-[petal-fall_ease-in-out_infinite]"
+          className="absolute top-0 block animate-[petal-fall_linear_infinite]"
           style={{
             left: `${p.left}%`,
             width: `${p.size}px`,
@@ -45,6 +49,7 @@ export const PetalRain = () => {
             opacity: p.opacity,
             animationDelay: `${p.delay}s`,
             animationDuration: `${p.duration}s`,
+            animationFillMode: "both",
             ["--drift" as string]: `${p.drift}px`,
           }}
         >
