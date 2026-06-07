@@ -8,21 +8,23 @@ interface Petal {
   size: number;
   opacity: number;
   hue: number;
+  drift: number;
 }
 
-const PETAL_COUNT = 18;
+const PETAL_COUNT = 10;
 
 export const PetalRain = () => {
   const petals = useMemo<Petal[]>(
     () =>
       Array.from({ length: PETAL_COUNT }, (_, i) => ({
         id: i,
-        left: Math.random() * 100,
-        delay: Math.random() * 12,
-        duration: 12 + Math.random() * 14,
-        size: 10 + Math.random() * 14,
-        opacity: 0.35 + Math.random() * 0.5,
-        hue: 340 + Math.random() * 20,
+        left: Math.random() * 96 + 2,
+        delay: Math.random() * 16,
+        duration: 16 + Math.random() * 18,
+        size: 8 + Math.random() * 13,
+        opacity: 0.08 + Math.random() * 0.18,
+        hue: 338 + Math.random() * 22,
+        drift: (Math.random() - 0.5) * 55,
       })),
     [],
   );
@@ -35,7 +37,7 @@ export const PetalRain = () => {
       {petals.map((p) => (
         <span
           key={p.id}
-          className="absolute top-0 block animate-[petal-fall_linear_infinite]"
+          className="absolute top-0 block animate-[petal-fall_ease-in-out_infinite]"
           style={{
             left: `${p.left}%`,
             width: `${p.size}px`,
@@ -43,18 +45,20 @@ export const PetalRain = () => {
             opacity: p.opacity,
             animationDelay: `${p.delay}s`,
             animationDuration: `${p.duration}s`,
+            ["--drift" as string]: `${p.drift}px`,
           }}
         >
           <svg viewBox="0 0 32 32" className="h-full w-full">
             <path
-              d="M16 2 C20 8, 26 12, 28 18 C26 24, 20 28, 16 30 C12 28, 6 24, 4 18 C6 12, 12 8, 16 2 Z"
-              fill={`hsl(${p.hue} 75% 72% / 0.85)`}
+              d="M16 3 C19 9, 25 12, 27 18 C25 24, 19 27, 16 29 C13 27, 7 24, 5 18 C7 12, 13 9, 16 3 Z"
+              fill={`hsl(${p.hue} 68% 74% / 0.88)`}
             />
             <path
-              d="M16 6 C18 12, 22 16, 24 20"
-              stroke={`hsl(${p.hue} 60% 55% / 0.6)`}
-              strokeWidth="0.6"
+              d="M16 7 C17.5 12, 21 15, 23 19"
+              stroke={`hsl(${p.hue} 55% 58% / 0.45)`}
+              strokeWidth="0.7"
               fill="none"
+              strokeLinecap="round"
             />
           </svg>
         </span>

@@ -92,10 +92,11 @@ export default {
           "100%": { opacity: "1", transform: "scale(1)" },
         },
         "petal-fall": {
-          "0%": { transform: "translateY(-10vh) translateX(0) rotate(0deg)", opacity: "0" },
-          "10%": { opacity: "1" },
-          "90%": { opacity: "1" },
-          "100%": { transform: "translateY(110vh) translateX(40px) rotate(360deg)", opacity: "0" },
+          "0%": { transform: "translateY(-8vh) translateX(0) rotate(0deg)", opacity: "0" },
+          "8%": { opacity: "1" },
+          "50%": { transform: "translateY(55vh) translateX(var(--drift, 30px)) rotate(180deg)" },
+          "92%": { opacity: "0.9" },
+          "100%": { transform: "translateY(108vh) translateX(calc(var(--drift, 30px) * 0.6)) rotate(340deg)", opacity: "0" },
         },
         "pulse-glow": {
           "0%, 100%": { boxShadow: "0 0 0 0 hsl(var(--primary) / 0.55)" },

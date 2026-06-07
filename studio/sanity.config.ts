@@ -5,7 +5,7 @@ import { schemaTypes } from "./schemas";
 import { structure } from "./structure";
 
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
-const singletonTypes = new Set(["siteSettings", "hero", "about", "ctaReserve"]);
+const singletonTypes = new Set(["navbarHours"]);
 
 export default defineConfig({
   name: "oishi-adrenalina",

@@ -1,23 +1,10 @@
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { useSanityData } from "@/hooks/useSanityData";
-import { siteSettingsQuery } from "@/sanity/queries";
-
-// 1. Tipagem para as configurações do site vindas do Sanity
-interface SiteSettingsData {
-  whatsappMessage?: string;
-  whatsappNumber?: string;
-}
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 export const WhatsAppFab = () => {
-  // 2. Substituindo o 'any' pela interface correta SiteSettingsData
-  const { data: settings } = useSanityData<SiteSettingsData>(
-    "siteSettings",
-    siteSettingsQuery,
-  );
-
   const whatsappUrl = buildWhatsAppUrl(
-    settings?.whatsappMessage,
-    settings?.whatsappNumber,
+    SITE_CONFIG.whatsappMessage,
+    SITE_CONFIG.whatsappNumber,
   );
 
   return (

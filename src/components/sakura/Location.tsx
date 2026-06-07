@@ -1,14 +1,6 @@
 import { ArrowUpRight, MapPin, Navigation } from "lucide-react";
-import { useSanityData } from "@/hooks/useSanityData";
-import { siteSettingsQuery } from "@/sanity/queries";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
-interface SiteSettingsData {
-  address?: string;
-  hoursLabel?: string;
-  hoursDisplay?: string;
-}
-
-const FALLBACK_ADDRESS = "Rua 13 de Maio, 705 — Piraju-SP";
 const MAP_QUERY = encodeURIComponent("Rua 13 de Maio, 705, Piraju - SP");
 
 const mapsEmbedUrl = `https://maps.google.com/maps?q=${MAP_QUERY}&hl=pt-BR&z=16&output=embed`;
@@ -16,14 +8,7 @@ const mapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${
 const mapsPlaceUrl = `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`;
 
 export const Location = () => {
-  const { data: settings } = useSanityData<SiteSettingsData>(
-    "siteSettings",
-    siteSettingsQuery,
-  );
-
-  const address = settings?.address || FALLBACK_ADDRESS;
-  const hoursLabel = settings?.hoursLabel || "Seg — Sáb";
-  const hoursDisplay = settings?.hoursDisplay || "16h às 00h";
+  const { address, hoursLabel, hoursDisplay } = SITE_CONFIG;
 
   return (
     <section id="localizacao" className="relative py-32 overflow-hidden">
@@ -31,7 +16,6 @@ export const Location = () => {
 
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Content */}
           <div className="lg:col-span-5 reveal">
             <span className="font-jp text-primary text-sm tracking-[0.4em]">
               所在地
@@ -99,7 +83,6 @@ export const Location = () => {
             </div>
           </div>
 
-          {/* Map */}
           <div
             className="lg:col-span-7 reveal"
             style={{ transitionDelay: "120ms" }}

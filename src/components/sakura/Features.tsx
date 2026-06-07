@@ -9,20 +9,10 @@ import {
   Heart,
   Star,
   Flame,
-  LucideIcon, // 1. Importando a tipagem oficial do Lucide
+  LucideIcon,
 } from "lucide-react";
-import { useSanityData } from "@/hooks/useSanityData";
-import { featuresQuery } from "@/sanity/queries";
+import { FEATURES_CONTENT } from "@/data/siteConfig";
 
-// 2. Tipagens para os diferenciais
-interface FeatureItem {
-  icon: string;
-  title: string;
-  description?: string;
-  desc?: string; // Mantido como opcional para garantir compatibilidade com dados antigos
-}
-
-// 3. Removendo o 'any' e tipando o mapa de ícones
 const iconMap: Record<string, LucideIcon> = {
   Sparkles,
   Leaf,
@@ -37,39 +27,6 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export const Features = () => {
-  // 4. Aplicando a tipagem no hook do Sanity
-  const { data: sanityFeatures } = useSanityData<FeatureItem[]>(
-    "features",
-    featuresQuery,
-  );
-
-  const fallbackFeatures: FeatureItem[] = [
-    {
-      icon: "Sparkles",
-      title: "Ambiente Sofisticado",
-      description: "Iluminação cuidada, design contemporâneo e atmosfera.",
-    },
-    {
-      icon: "Leaf",
-      title: "Ingredientes Frescos",
-      description: "Peixes selecionados diariamente.",
-    },
-    {
-      icon: "Wine",
-      title: "Drinks Exclusivos",
-      description: "Variedades de Drinks, com a melhor qualidade da região.",
-    },
-    {
-      icon: "ConciergeBell",
-      title: "Atendimento Premium",
-      description: "Equipe treinada para uma experiência memorável.",
-    },
-  ];
-
-  const featuresList = sanityFeatures?.length
-    ? sanityFeatures
-    : fallbackFeatures;
-
   return (
     <section id="diferenciais" className="relative py-32">
       <div className="container">
@@ -91,13 +48,12 @@ export const Features = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/60">
-          {featuresList.map((f, i) => {
-            // Se o ícone não existir no mapa, o Sparkles será usado como fallback
+          {FEATURES_CONTENT.map((f, i) => {
             const Icon = iconMap[f.icon] || Sparkles;
 
             return (
               <div
-                key={`${f.title}-${i}`}
+                key={f.title}
                 className="reveal bg-background p-10 group hover:bg-card transition-colors duration-500"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
@@ -106,7 +62,7 @@ export const Features = () => {
                 </div>
                 <h3 className="font-display text-2xl mb-3">{f.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {f.description || f.desc}
+                  {f.description}
                 </p>
               </div>
             );

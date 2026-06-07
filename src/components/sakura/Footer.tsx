@@ -1,21 +1,12 @@
 import { Instagram, MapPin, Phone, Clock } from "lucide-react";
-import { useSanityData } from "@/hooks/useSanityData";
-import { siteSettingsQuery } from "@/sanity/queries";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 export const Footer = () => {
-  const { data: settings } = useSanityData<any>(
-    "siteSettings",
-    siteSettingsQuery,
-  );
-
-  const fallbackAddress = "Rua 13 de Maio, 705 — Piraju-SP";
-  const fallbackPhone = "(14) 99775-7180";
-  const fallbackInstagram = "@oishiadrenalina";
-  const fallbackHoursLabel = "Seg — Sáb";
-  const fallbackHoursDisplay = "16h às 00h";
-
   const currentYear = new Date().getFullYear();
-  const fallbackCopyright = `© 2010 Oishi Restaurante. Todos os direitos reservados.`;
+  const copyrightText = SITE_CONFIG.copyrightText.replace(
+    "2010",
+    String(currentYear),
+  );
 
   return (
     <footer className="border-t border-border/60 py-16">
@@ -23,13 +14,12 @@ export const Footer = () => {
         <div className="md:col-span-2">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-3xl tracking-[0.25em]">
-              {settings?.restaurantName || "Oishi Adrenalina"}
+              {SITE_CONFIG.restaurantName} Adrenalina
             </span>
             <span className="font-jp text-primary">桜</span>
           </div>
           <p className="mt-5 max-w-sm text-sm text-muted-foreground leading-relaxed">
-            {settings?.tagline ||
-              "Restaurante e bar japonês onde tradição, sabor e sofisticação se encontram em cada detalhe."}
+            {SITE_CONFIG.tagline}
           </p>
         </div>
 
@@ -40,15 +30,15 @@ export const Footer = () => {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-3">
               <MapPin size={14} className="mt-1 text-primary" />
-              {settings?.address || fallbackAddress}
+              {SITE_CONFIG.address}
             </li>
             <li className="flex items-center gap-3">
               <Phone size={14} className="text-primary" />
-              {settings?.phone || fallbackPhone}
+              {SITE_CONFIG.phone}
             </li>
             <li className="flex items-center gap-3">
               <Instagram size={14} className="text-primary" />
-              {settings?.instagram || fallbackInstagram}
+              {SITE_CONFIG.instagram}
             </li>
           </ul>
         </div>
@@ -61,9 +51,9 @@ export const Footer = () => {
             <li className="flex items-start gap-3">
               <Clock size={14} className="mt-1 text-primary" />
               <span>
-                {settings?.hoursLabel || fallbackHoursLabel}
+                {SITE_CONFIG.hoursLabel}
                 <br />
-                {settings?.hoursDisplay || fallbackHoursDisplay}
+                {SITE_CONFIG.hoursDisplay}
               </span>
             </li>
           </ul>
@@ -71,7 +61,7 @@ export const Footer = () => {
       </div>
 
       <div className="container mt-12 pt-8 border-t border-border/60 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground">
-        <p>{settings?.copyrightText || fallbackCopyright}</p>
+        <p>{copyrightText}</p>
         <p className="font-jp tracking-widest">桜・ラウンジ</p>
       </div>
     </footer>

@@ -1,33 +1,12 @@
 // Queries GROQ para buscar dados do Sanity CMS
 
-// Settings gerais do restaurante (singleton)
-export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
-  restaurantName,
-  tagline,
-  whatsappNumber,
-  whatsappMessage,
-  address,
-  phone,
-  instagram,
+export const navbarHoursQuery = `*[_type == "navbarHours"][0]{
   openHour,
   closeHour,
-  hoursLabel,
-  hoursDisplay,
-  copyrightText
+  automatic,
+  manualStatus
 }`;
 
-// Hero section (singleton)
-export const heroQuery = `*[_type == "hero"][0]{
-  subtitle,
-  headingLine1,
-  headingLine2,
-  tagline,
-  description,
-  ctaButtonText,
-  secondaryLinkText,
-  "backgroundImage": backgroundImage.asset->url
-}`;
-// Adicione isto ao seu arquivo de queries
 export const showsQuery = `*[_type == "liveshows"] | order(coalesce(order, 999) asc) {
   _id,
   artist,
@@ -35,15 +14,6 @@ export const showsQuery = `*[_type == "liveshows"] | order(coalesce(order, 999) 
   time,
   description,
   "imageUrl": image.asset->url
-}`;
-
-// About section (singleton)
-export const aboutQuery = `*[_type == "about"][0]{
-  heading,
-  headingLine2,
-  paragraph1,
-  paragraph2,
-  stats[]{ number, label }
 }`;
 
 // Categorias do cardápio com subitens
@@ -60,26 +30,10 @@ export const menuCategoriesQuery = `*[_type == "menuCategory"] | order(order asc
   }
 }`;
 
-// Features / diferenciais (lista ordenada)
-export const featuresQuery = `*[_type == "feature"] | order(order asc){
-  _id,
-  icon,
-  title,
-  description,
-  order
-}`;
-
 // Gallery images (lista ordenada)
 export const galleryImagesQuery = `*[_type == "galleryImage"] | order(order asc){
   _id,
   "image": image.asset->url,
   alt,
   order
-}`;
-
-// CTA Reserve section (singleton)
-export const ctaReserveQuery = `*[_type == "ctaReserve"][0]{
-  heading,
-  description,
-  buttonText
 }`;
