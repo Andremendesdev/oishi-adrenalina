@@ -11,6 +11,9 @@
     "preview": "vite preview",
     "studio:dev": "npm run dev --prefix studio",
     "studio:deploy": "npm run deploy --prefix studio",
+    "seed:gallery": "npm run seed:gallery --prefix studio",
+    "reset:navbar": "npx tsx scripts/reset-navbar-hours.mts",
+    "fix:menu-images": "npx tsx scripts/fix-menu-images.mts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

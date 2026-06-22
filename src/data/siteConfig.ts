@@ -20,7 +20,7 @@ export const SITE_CONFIG = {
 } as const;
 
 export const HERO_CONTENT = {
-  subtitle: "Bar & Restaurante Japonês",
+  subtitle: "Bar & Restaurante",
   headingLine1: "Oishi",
   headingLine2: "Adrenalina",
   tagline: "Uma experiência culinária inesquecível.",

@@ -1,11 +1,28 @@
+import { useEffect, useState } from "react";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { SITE_CONFIG } from "@/data/siteConfig";
+import { cn } from "@/lib/utils";
 
 export const WhatsAppFab = () => {
+  const [visible, setVisible] = useState(false);
+
   const whatsappUrl = buildWhatsAppUrl(
     SITE_CONFIG.whatsappMessage,
     SITE_CONFIG.whatsappNumber,
   );
+
+  useEffect(() => {
+    const hero = document.getElementById("top");
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <a
@@ -13,7 +30,14 @@ export const WhatsAppFab = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chamar no WhatsApp"
-      className="fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(142_70%_42%)] text-white shadow-red hover:scale-110 transition-transform duration-500 animate-pulse-glow"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
+      className={cn(
+        "fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(142_70%_42%)] text-white shadow-red transition-all duration-500",
+        visible
+          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto animate-pulse-glow"
+          : "opacity-0 translate-y-3 scale-95 pointer-events-none",
+      )}
     >
       <svg
         viewBox="0 0 24 24"

@@ -1,8 +1,8 @@
 import { useSanityData } from "@/hooks/useSanityData";
 import { menuCategoriesQuery } from "@/sanity/queries";
-import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { fallbackCategories, MenuCategory } from "@/data/menuData";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 interface SanityCategory {
   _id: string;
@@ -14,17 +14,15 @@ interface SanityCategory {
   items?: { name: string; description?: string }[];
 }
 
-interface MenuProps {
-  isFullPage?: boolean;
-}
+const MENU_WHATSAPP_MESSAGE = "Quero ver o Menu";
+const INITIAL_ITEMS = 4;
 
-export const Menu = ({ isFullPage = false }: MenuProps) => {
+export const Menu = () => {
   const { data: sanityCategories } = useSanityData<SanityCategory[]>(
     "menuCategories",
     menuCategoriesQuery,
   );
 
-  // Mapear categorias do Sanity para o formato local
   const sanityMapped: MenuCategory[] | undefined = sanityCategories?.length
     ? sanityCategories.map((cat) => ({
         id: cat.slug,
@@ -39,10 +37,8 @@ export const Menu = ({ isFullPage = false }: MenuProps) => {
     : undefined;
 
   const finalItems = sanityMapped || fallbackCategories;
-
-  // 4 itens para o preview na home
-  const INITIAL_ITEMS = 4;
-  const fotosVisiveis = isFullPage ? finalItems : finalItems.slice(0, INITIAL_ITEMS);
+  const fotosVisiveis = finalItems.slice(0, INITIAL_ITEMS);
+  const menuWhatsAppUrl = buildWhatsAppUrl(MENU_WHATSAPP_MESSAGE);
 
   return (
     <section id="cardapio" className="relative py-16 bg-secondary/40">
@@ -59,47 +55,44 @@ export const Menu = ({ isFullPage = false }: MenuProps) => {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
           {fotosVisiveis.map((it, idx) => (
-            <Link key={`${it.id}-${idx}`} to={`/categoria/${it.id}`} className="block group">
-              <article
-                className="relative h-full bg-card border border-border/60 overflow-hidden hover:border-primary/60 transition-all duration-700"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={it.img}
-                    alt={it.name}
-                    loading="lazy"
-                    width={600}
-                    height={800}
-                    className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                </div>
-                <div className="p-7">
-                  <h3 className="font-display text-2xl text-foreground">
-                    {it.name}
-                  </h3>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                    {it.desc}
-                  </p>
-                  <div className="mt-5 pt-5 border-t border-border/50 flex items-center justify-between">
-                    <span className="text-primary text-sm font-medium uppercase tracking-wider group-hover:text-primary/80 transition-colors flex items-center gap-2">
-                      Ver opções <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </div>
-              </article>
-            </Link>
+            <article
+              key={`${it.id}-${idx}`}
+              className="relative h-full bg-card border border-border/60 overflow-hidden"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={it.img}
+                  alt={it.name}
+                  loading="lazy"
+                  width={600}
+                  height={800}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+              </div>
+              <div className="p-7">
+                <h3 className="font-display text-2xl text-foreground">
+                  {it.name}
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  {it.desc}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
 
-        {!isFullPage && finalItems.length > INITIAL_ITEMS && (
+        {finalItems.length > INITIAL_ITEMS && (
           <div className="flex justify-center mt-12">
-            <Link
-              to="/cardapio"
-              className="px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wider text-sm uppercase rounded-sm inline-block"
+            <a
+              href={menuWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium tracking-wider text-sm uppercase rounded-sm"
             >
-              Ver todos no cardápio
-            </Link>
+              Ver todos
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
         )}
       </div>

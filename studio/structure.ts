@@ -5,7 +5,7 @@ export const structure: StructureResolver = (S) =>
     .title("Conteúdo")
     .items([
       S.listItem()
-        .title("🕐 Horário da Navbar")
+        .title("🕐 Status da Navbar")
         .child(
           S.document().schemaType("navbarHours").documentId("navbarHours"),
         ),

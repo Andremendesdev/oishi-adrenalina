@@ -5,8 +5,11 @@ import { SITE_CONFIG } from "@/data/siteConfig";
 import { useSanityData } from "@/hooks/useSanityData";
 import { navbarHoursQuery } from "@/sanity/queries";
 import {
+  DEFAULT_CLOSE_HOUR,
+  DEFAULT_OPEN_HOUR,
   formatNavbarHour,
-  NavbarHoursConfig,
+  NavbarStatus,
+  NavbarStatusConfig,
   resolveNavbarOpenStatus,
 } from "@/lib/restaurantHours";
 
@@ -18,44 +21,43 @@ const links = [
   { href: "#reserva", label: "Mais" },
 ];
 
-const DEFAULT_NAVBAR_HOURS: NavbarHoursConfig = {
-  openHour: SITE_CONFIG.openHour,
-  closeHour: SITE_CONFIG.closeHour,
+const DEFAULT_NAVBAR_STATUS: NavbarStatusConfig = {
   automatic: true,
-  manualStatus: "open",
+  status: "open",
+  openHour: DEFAULT_OPEN_HOUR,
+  closeHour: DEFAULT_CLOSE_HOUR,
 };
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const { data: hoursConfig } = useSanityData<NavbarHoursConfig>(
+  const { data: statusConfig } = useSanityData<NavbarStatusConfig>(
     "navbarHours",
     navbarHoursQuery,
-    DEFAULT_NAVBAR_HOURS,
+    DEFAULT_NAVBAR_STATUS,
   );
 
-  const openHour = hoursConfig?.openHour ?? DEFAULT_NAVBAR_HOURS.openHour;
-  const closeHour = hoursConfig?.closeHour ?? DEFAULT_NAVBAR_HOURS.closeHour;
-  const automatic = hoursConfig?.automatic ?? DEFAULT_NAVBAR_HOURS.automatic;
-  const manualStatus =
-    hoursConfig?.manualStatus ?? DEFAULT_NAVBAR_HOURS.manualStatus;
+  const automatic = statusConfig?.automatic ?? true;
+  const status: NavbarStatus = statusConfig?.status ?? "open";
+  const openHour = DEFAULT_OPEN_HOUR;
+  const closeHour = DEFAULT_CLOSE_HOUR;
+
+  const [isOpen, setIsOpen] = useState(() =>
+    resolveNavbarOpenStatus({ automatic, status, openHour, closeHour }),
+  );
 
   useEffect(() => {
-    const checkOpenStatus = () => {
+    const updateStatus = () => {
       setIsOpen(
-        resolveNavbarOpenStatus({
-          openHour,
-          closeHour,
-          automatic,
-          manualStatus,
-        }),
+        resolveNavbarOpenStatus({ automatic, status, openHour, closeHour }),
       );
     };
 
-    checkOpenStatus();
-    const intervalId = setInterval(checkOpenStatus, 60000);
+    updateStatus();
+    const intervalId = automatic
+      ? setInterval(updateStatus, 60000)
+      : undefined;
 
     const onScroll = () => setScrolled(window.scrollY > 30);
     onScroll();
@@ -63,9 +65,9 @@ export const Navbar = () => {
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      clearInterval(intervalId);
+      if (intervalId) clearInterval(intervalId);
     };
-  }, [openHour, closeHour, automatic, manualStatus]);
+  }, [automatic, status, openHour, closeHour]);
 
   return (
     <header

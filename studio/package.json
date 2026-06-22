@@ -8,11 +8,12 @@
     "dev": "sanity dev",
     "build": "sanity build",
     "deploy": "sanity deploy",
+    "seed:gallery": "sanity exec scripts/seed-gallery.mts --with-user-token",
     "start": "sanity start"
   },
   "dependencies": {
-    "sanity": "^3.72.1",
-    "@sanity/vision": "^3.72.1",
+    "sanity": "^3.99.0",
+    "@sanity/vision": "^3.99.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "styled-components": "^6.1.14"

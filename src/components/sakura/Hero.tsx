@@ -158,7 +158,7 @@ export const Hero = () => {
       </motion.div>
 
       {/* ─── Main content ─── */}
-      <div className="container relative z-10 py-28 md:py-36">
+      <div className="container relative z-10 py-28 md:py-36 lg:-translate-y-8">
         <motion.div
           className="w-full text-center md:text-left"
           variants={containerVariants}
@@ -188,10 +188,7 @@ export const Hero = () => {
 
           <div className="py-3 -my-3" style={{ overflow: "clip" }}>
             <motion.h1
-              className="font-display italic text-gradient-red font-black leading-[0.9] tracking-tight whitespace-nowrap"
-              style={{
-                fontSize: "clamp(4rem, 11.5vw, 11.5rem)",
-              }}
+              className="font-display italic text-gradient-red font-black leading-[0.9] tracking-tight whitespace-nowrap text-[clamp(4rem,11.5vw,11.5rem)] lg:text-[clamp(3.75rem,9vw,9.25rem)]"
               variants={heroNameVariant}
             >
               {HERO_CONTENT.headingLine2}

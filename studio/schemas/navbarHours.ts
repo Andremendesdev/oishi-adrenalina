@@ -1,38 +1,22 @@
 export default {
   name: "navbarHours",
-  title: "Horário da Navbar",
+  title: "Status da Navbar",
   type: "document",
   icon: () => "🕐",
   fields: [
     {
-      name: "openHour",
-      title: "Abrir",
-      type: "number",
-      description: "Hora de abertura (0–23). Ex: 16 = 16:00",
-      validation: (Rule: any) => Rule.required().min(0).max(23),
-      initialValue: 16,
-    },
-    {
-      name: "closeHour",
-      title: "Fechar",
-      type: "number",
-      description: "Hora de fechamento (0–24). Use 24 para meia-noite.",
-      validation: (Rule: any) => Rule.required().min(0).max(24),
-      initialValue: 24,
-    },
-    {
       name: "automatic",
-      title: "Automático",
+      title: "Horário automático",
       type: "boolean",
       description:
-        "Ativo: exibe Aberto/Fechado automaticamente conforme o horário atual. Desativado: usa o status manual abaixo.",
+        "Ativo: Aberto/Fechado conforme horário padrão (Seg — Sáb, 16:00 — 00:00). Domingo sempre fechado. Desativado: escolha o status manual abaixo.",
       initialValue: true,
     },
     {
-      name: "manualStatus",
-      title: "Status Manual",
+      name: "status",
+      title: "Status manual",
       type: "string",
-      description: "Usado apenas quando Automático estiver desativado.",
+      description: "Usado quando Horário automático estiver desativado.",
       options: {
         list: [
           { title: "Aberto", value: "open" },
@@ -42,12 +26,25 @@ export default {
       },
       initialValue: "open",
       hidden: ({ parent }: { parent?: { automatic?: boolean } }) =>
-        parent?.automatic !== false,
+        Boolean(parent?.automatic ?? true),
     },
   ],
   preview: {
-    prepare() {
-      return { title: "Horário da Navbar" };
+    select: { automatic: "automatic", status: "status" },
+    prepare({
+      automatic,
+      status,
+    }: {
+      automatic?: boolean;
+      status?: string;
+    }) {
+      const mode =
+        automatic !== false
+          ? "Automático · Seg — Sáb · 16:00 — 00:00"
+          : status === "closed"
+            ? "Fechado · Seg — Sáb · 16:00 — 00:00"
+            : "Aberto · Seg — Sáb · 16:00 — 00:00";
+      return { title: "Status da Navbar", subtitle: mode };
     },
   },
 };

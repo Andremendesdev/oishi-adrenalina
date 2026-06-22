@@ -1,10 +1,8 @@
 // Queries GROQ para buscar dados do Sanity CMS
 
 export const navbarHoursQuery = `*[_type == "navbarHours"][0]{
-  openHour,
-  closeHour,
   automatic,
-  manualStatus
+  status
 }`;
 
 export const showsQuery = `*[_type == "liveshows"] | order(coalesce(order, 999) asc) {

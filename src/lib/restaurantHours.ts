@@ -1,15 +1,26 @@
-export interface NavbarHoursConfig {
-  openHour: number;
-  closeHour: number;
+export type NavbarStatus = "open" | "closed";
+
+export interface NavbarStatusConfig {
   automatic?: boolean;
-  manualStatus?: "open" | "closed";
+  status?: NavbarStatus;
+  openHour?: number;
+  closeHour?: number;
 }
+
+export const DEFAULT_OPEN_HOUR = 16;
+export const DEFAULT_CLOSE_HOUR = 24;
+
+/** 0 = domingo — restaurante fechado */
+export const isOperatingDay = (date: Date = new Date()): boolean =>
+  date.getDay() !== 0;
 
 export const isRestaurantOpen = (
   openHour: number,
   closeHour: number,
   date: Date = new Date(),
 ): boolean => {
+  if (!isOperatingDay(date)) return false;
+
   const currentHour = date.getHours();
 
   if (openHour < closeHour) {
@@ -20,14 +31,17 @@ export const isRestaurantOpen = (
 };
 
 export const resolveNavbarOpenStatus = (
-  config: NavbarHoursConfig,
+  config: NavbarStatusConfig,
   date: Date = new Date(),
 ): boolean => {
-  if (config.automatic === false) {
-    return config.manualStatus === "open";
+  const openHour = config.openHour ?? DEFAULT_OPEN_HOUR;
+  const closeHour = config.closeHour ?? DEFAULT_CLOSE_HOUR;
+
+  if (config.automatic !== false) {
+    return isRestaurantOpen(openHour, closeHour, date);
   }
 
-  return isRestaurantOpen(config.openHour, config.closeHour, date);
+  return (config.status ?? "open") === "open";
 };
 
 export const formatNavbarHour = (hour: number): string => {
