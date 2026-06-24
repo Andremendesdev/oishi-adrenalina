@@ -10,31 +10,31 @@ interface Review {
   timeAgo: string;
 }
 
-// 2. Dados estáticos simulando os comentários do Google
+// 2. Avaliações reais do Google
 const reviews: Review[] = [
   {
     id: "1",
-    author: "Rafael Costa",
-    initials: "RC",
-    text: "Experiência fantástica! O ambiente é super moderno e agradável. O frescor do sashimi é inegável e os drinks autorais são um espetáculo à parte. Com certeza voltarei.",
+    author: "Débora Sohn",
+    initials: "DS",
+    text: "Que bela surpresa! Muito melhor que comida de boteco de fato. Fomos por indicação da pousada que ficamos, pois é próxima — foi o melhor almoço que tivemos em nossa viagem!",
     rating: 5,
-    timeAgo: "Há 2 semanas",
+    timeAgo: "Há 3 meses",
   },
   {
     id: "2",
-    author: "Juliana Mendes",
-    initials: "JM",
-    text: "Melhor restaurante japonês da região. O atendimento foi impecável do início ao fim. Recomendo fortemente o temaki exclusivo da casa, o sabor é surpreendente.",
+    author: "Marta Leme",
+    initials: "ML",
+    text: "Primeira vez que fui, a casa estava lotada, mas fomos muito bem atendidos. Comida é ótima.",
     rating: 5,
-    timeAgo: "Há 1 mês",
+    timeAgo: "Há 5 meses",
   },
   {
     id: "3",
-    author: "Carlos Eduardo",
-    initials: "CE",
-    text: "Tradição e modernidade na medida certa. Os pratos são muito bem montados e a qualidade dos ingredientes é nítida. O clima é perfeito para um jantar a dois.",
+    author: "Bianca Bononi",
+    initials: "BB",
+    text: "Ambiente muito gostoso, com bastante natureza e vista. Recomendo!",
     rating: 5,
-    timeAgo: "Há 2 meses",
+    timeAgo: "Há 2 anos",
   },
 ];
 

@@ -16,7 +16,8 @@ export const SITE_CONFIG = {
   closeHour: 24,
   hoursLabel: "Seg — Sáb",
   hoursDisplay: "16h às 00h",
-  copyrightText: "© 2010 Oishi Restaurante. Todos os direitos reservados.",
+  foundedYear: 1999,
+  copyrightText: "© 1999 Oishi Restaurante. Todos os direitos reservados.",
 } as const;
 
 export const HERO_CONTENT = {
@@ -39,7 +40,7 @@ export const ABOUT_CONTENT = {
   paragraph2:
     "De sushi e sashimi cuidadosamente selecionados a temakis exclusivos e drinks autorais, oferecemos uma jornada gastronômica em um ambiente sofisticado, perfeito para encontros memoráveis.",
   stats: [
-    { number: "10+", label: "Anos de tradição" },
+    { number: "1999", label: "Desde" },
     { number: "60", label: "Itens no cardápio" },
     { number: "AGSB 🇯🇵🇧🇷", label: "Membro" },
   ],

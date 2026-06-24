@@ -4,8 +4,8 @@ import { SITE_CONFIG } from "@/data/siteConfig";
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const copyrightText = SITE_CONFIG.copyrightText.replace(
-    "2010",
-    String(currentYear),
+    String(SITE_CONFIG.foundedYear),
+    `${SITE_CONFIG.foundedYear}–${currentYear}`,
   );
 
   return (
