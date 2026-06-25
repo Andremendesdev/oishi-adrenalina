@@ -12,6 +12,9 @@ export const SITE_CONFIG = {
   address: "Rua 13 de Maio, 705 — Piraju-SP",
   phone: "(14) 99775-7180",
   instagram: "@oishiadrenalina",
+  siteUrl:
+    (import.meta.env.VITE_SITE_URL as string | undefined) ??
+    "https://oishiadrenalina.com.br",
   openHour: 16,
   closeHour: 24,
   hoursLabel: "Seg — Sáb",

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run generate:sitemap && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -14,6 +14,7 @@
     "seed:gallery": "npm run seed:gallery --prefix studio",
     "reset:navbar": "npx tsx scripts/reset-navbar-hours.mts",
     "fix:menu-images": "npx tsx scripts/fix-menu-images.mts",
+    "generate:sitemap": "npx tsx scripts/generate-sitemap.mts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
