@@ -57,7 +57,11 @@ const heroNameVariant = {
   },
 };
 
-export const Hero = () => {
+interface HeroProps {
+  introDone?: boolean;
+}
+
+export const Hero = ({ introDone = true }: HeroProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
   const bgY = useTransform(scrollY, [0, 700], ["0%", "22%"]);
@@ -83,6 +87,8 @@ export const Hero = () => {
     SITE_CONFIG.whatsappNumber,
   );
 
+  const motionState = introDone ? "visible" : "hidden";
+
   return (
     <section
       id="top"
@@ -102,7 +108,7 @@ export const Hero = () => {
             height={1080}
             className="h-full w-full object-cover object-center"
             initial={{ scale: 1.04 }}
-            animate={{ scale: 1 }}
+            animate={introDone ? { scale: 1 } : { scale: 1.04 }}
             transition={{ duration: 1.6, ease: EASE_SMOOTH }}
           />
         </motion.div>
@@ -149,8 +155,8 @@ export const Hero = () => {
       <motion.div
         className="hidden lg:flex absolute right-10 top-1/2 -translate-y-1/2 z-10 flex-col items-center gap-5"
         initial={{ opacity: 0, x: 28 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.4, delay: 1.3, ease: EASE_SMOOTH }}
+        animate={introDone ? { opacity: 1, x: 0 } : { opacity: 0, x: 28 }}
+        transition={{ duration: 1.4, delay: introDone ? 1.3 : 0, ease: EASE_SMOOTH }}
       >
         <span className="font-jp vertical-text text-[10px] tracking-[0.65em] text-primary/35 uppercase">
           {HERO_CONTENT.subtitle}
@@ -158,8 +164,8 @@ export const Hero = () => {
         <motion.span
           className="w-px bg-gradient-to-b from-primary/45 via-primary/12 to-transparent"
           initial={{ height: 0 }}
-          animate={{ height: 96 }}
-          transition={{ duration: 1.3, delay: 1.6, ease: EASE_SMOOTH }}
+          animate={{ height: introDone ? 96 : 0 }}
+          transition={{ duration: 1.3, delay: introDone ? 1.6 : 0, ease: EASE_SMOOTH }}
           style={{ display: "block" }}
         />
         <span className="font-jp vertical-text text-[10px] tracking-[0.5em] text-foreground/18">
@@ -173,7 +179,7 @@ export const Hero = () => {
           className="w-full text-center md:text-left"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={motionState}
         >
           <motion.div
             className="flex justify-center md:justify-start mb-9"
@@ -294,8 +300,8 @@ export const Hero = () => {
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2.5"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.3, duration: 1.0 }}
+        animate={{ opacity: introDone ? 1 : 0 }}
+        transition={{ delay: introDone ? 2.3 : 0, duration: 1.0 }}
       >
         <span className="text-[8px] uppercase tracking-[0.55em] text-foreground/22 font-body">
           Scroll

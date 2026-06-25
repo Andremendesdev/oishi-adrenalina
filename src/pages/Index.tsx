@@ -32,7 +32,7 @@ const Index = () => {
       >
       <PetalRain />
       <Navbar />
-      <Hero />
+      <Hero introDone={introDone} />
       <Menu />
       <LiveShows />
       <About />
