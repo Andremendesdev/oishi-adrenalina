@@ -90,7 +90,7 @@ export const Hero = () => {
       className="relative min-h-[100dvh] w-full overflow-hidden flex items-center"
     >
       {/* ─── Background layers ─── */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+      <motion.div className="absolute inset-0 z-0 bg-black" style={{ y: bgY }}>
         <motion.div
           className="absolute inset-[-5%]"
           style={{ x: springX, y: springY }}
@@ -101,9 +101,9 @@ export const Hero = () => {
             width={1920}
             height={1080}
             className="h-full w-full object-cover object-center"
-            initial={{ opacity: 0, scale: 1.12 }}
-            animate={{ opacity: 1, scale: 1.06 }}
-            transition={{ duration: 2.8, ease: "easeOut" }}
+            initial={{ scale: 1.04 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.6, ease: EASE_SMOOTH }}
           />
         </motion.div>
 
@@ -121,9 +121,19 @@ export const Hero = () => {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 90% 85% at 50% 50%, transparent 35%, hsl(0 0% 0% / 0.72) 100%)",
+              "linear-gradient(90deg, hsl(0 0% 0% / 0.45) 0%, hsl(0 0% 0% / 0.15) 55%, transparent 100%)",
           }}
         />
+
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 90% 85% at 50% 50%, transparent 35%, hsl(0 0% 0% / 0.65) 100%)",
+          }}
+        />
+
+        <div className="absolute inset-0 hidden lg:block pointer-events-none bg-black/25" />
 
         <div
           className="absolute inset-0 opacity-[0.038] pointer-events-none mix-blend-overlay"
@@ -177,22 +187,34 @@ export const Hero = () => {
             </div>
           </motion.div>
 
-          <div className="overflow-hidden py-2 -my-2">
-            <motion.p
-              className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground/55 tracking-[0.4em] font-light leading-none mb-1"
-              variants={revealClipVariant}
-            >
-              {HERO_CONTENT.headingLine1}
-            </motion.p>
-          </div>
+          <div className="relative mx-auto w-full max-w-full md:mx-0">
+            <motion.img
+              src="/images/tree.png"
+              alt=""
+              className="pointer-events-none absolute -top-12 -left-2 z-20 h-[8.25rem] w-[8.25rem] border-0 object-contain outline-none md:hidden"
+              variants={fadeUpVariant}
+            />
 
-          <div className="py-3 -my-3" style={{ overflow: "clip" }}>
-            <motion.h1
-              className="font-display italic text-gradient-red font-black leading-[0.9] tracking-tight whitespace-nowrap text-[clamp(4rem,11.5vw,11.5rem)] lg:text-[clamp(3.75rem,9vw,9.25rem)]"
-              variants={heroNameVariant}
+            <div className="overflow-hidden py-1 -my-1 md:py-2 md:-my-2">
+              <motion.p
+                className="font-display text-5xl md:text-6xl lg:text-7xl text-foreground tracking-[0.4em] font-light leading-none mb-0 md:mb-1"
+                variants={revealClipVariant}
+              >
+                {HERO_CONTENT.headingLine1}
+              </motion.p>
+            </div>
+
+            <div
+              className="overflow-hidden py-1 -my-2 md:py-3 md:-my-3"
+              style={{ overflow: "clip" }}
             >
-              {HERO_CONTENT.headingLine2}
-            </motion.h1>
+              <motion.h1
+                className="font-display italic text-gradient-red font-black leading-[0.9] tracking-tight whitespace-nowrap text-[clamp(4rem,11.5vw,11.5rem)] lg:text-[clamp(3.75rem,9vw,9.25rem)]"
+                variants={heroNameVariant}
+              >
+                {HERO_CONTENT.headingLine2}
+              </motion.h1>
+            </div>
           </div>
 
           <motion.div

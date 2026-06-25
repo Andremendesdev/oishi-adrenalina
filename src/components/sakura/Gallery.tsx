@@ -83,7 +83,7 @@ export const Gallery = () => {
                   src={img.src}
                   alt={img.alt}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform transition-duration-[1200ms] group-hover:scale-105"
                 />
                 {isLarge && (
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-60" />

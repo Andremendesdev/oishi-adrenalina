@@ -32,7 +32,7 @@ export const HERO_CONTENT = {
     "Drinks autorais, gastronomia japonesa e noites memoráveis em um ambiente único.",
   ctaButtonText: "Chamar no Whatsapp",
   secondaryLinkText: "Ver Cardápio",
-  backgroundImage: "/images/interior.png",
+  backgroundImage: "/images/interior3.png",
 } as const;
 
 export const ABOUT_CONTENT = {
