@@ -1,71 +1,87 @@
 import { useMemo } from "react";
 
-interface Petal {
-  id: number;
-  left: number;
-  delay: number;
-  duration: number;
-  size: number;
-  opacity: number;
-  hue: number;
-  drift: number;
+interface PetalRainProps {
+  count?: number;
 }
 
-const PETAL_COUNT = 10;
-
-export const PetalRain = () => {
-  const petals = useMemo<Petal[]>(
+/**
+ * Chuva de pétalas sakura — animação CSS, leve na GPU.
+ */
+export const PetalRain = ({ count = 22 }: PetalRainProps) => {
+  const petals = useMemo(
     () =>
-      Array.from({ length: PETAL_COUNT }, (_, i) => {
-        const duration = 10 + Math.random() * 8;
+      Array.from({ length: count }).map((_, i) => {
+        const left = Math.random() * 100;
+        const duration = 10 + Math.random() * 14;
+        const delay = -Math.random() * duration;
+        const height = 19 + Math.random() * 14;
+        const width = height * (0.62 + Math.random() * 0.1);
+        const drift = (Math.random() - 0.5) * 240;
+        const opacity = 0.4 + Math.random() * 0.5;
+        const rotate = -40 + Math.random() * 80;
+
         return {
           id: i,
-          left: Math.random() * 96 + 2,
-          // Delay negativo = pétala já em queda ao carregar a página
-          delay: -(Math.random() * duration),
+          left,
           duration,
-          size: 8 + Math.random() * 13,
-          opacity: 0.08 + Math.random() * 0.18,
-          hue: 338 + Math.random() * 22,
-          drift: (Math.random() - 0.5) * 55,
+          delay,
+          width,
+          height,
+          drift,
+          opacity,
+          rotate,
         };
       }),
-    [],
+    [count],
   );
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[5] overflow-hidden"
+      className="petal-rain pointer-events-none fixed inset-0 z-[15] overflow-hidden"
     >
       {petals.map((p) => (
         <span
           key={p.id}
-          className="absolute top-0 block animate-[petal-fall_linear_infinite]"
+          className="petal"
           style={{
-            left: `${p.left}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            opacity: p.opacity,
-            animationDelay: `${p.delay}s`,
+            left: `${p.left}vw`,
+            width: `${p.width}px`,
+            height: `${p.height}px`,
             animationDuration: `${p.duration}s`,
-            animationFillMode: "both",
+            animationDelay: `${p.delay}s`,
             ["--drift" as string]: `${p.drift}px`,
           }}
         >
-          <svg viewBox="0 0 32 32" className="h-full w-full">
-            <path
-              d="M16 3 C19 9, 25 12, 27 18 C25 24, 19 27, 16 29 C13 27, 7 24, 5 18 C7 12, 13 9, 16 3 Z"
-              fill={`hsl(${p.hue} 68% 74% / 0.88)`}
-            />
-            <path
-              d="M16 7 C17.5 12, 21 15, 23 19"
-              stroke={`hsl(${p.hue} 55% 58% / 0.45)`}
-              strokeWidth="0.7"
-              fill="none"
-              strokeLinecap="round"
-            />
-          </svg>
+          <span
+            className="petal__shape"
+            style={{
+              opacity: p.opacity,
+              transform: `rotate(${p.rotate}deg)`,
+            }}
+          >
+            <svg viewBox="0 0 32 48" className="h-full w-full" aria-hidden="true">
+              <defs>
+                <radialGradient
+                  id={`petal-grad-${p.id}`}
+                  cx="50%"
+                  cy="42%"
+                  r="58%"
+                  fx="50%"
+                  fy="38%"
+                >
+                  <stop offset="0%" stopColor="#fecaca" />
+                  <stop offset="35%" stopColor="#fca5a5" />
+                  <stop offset="72%" stopColor="#f87171" />
+                  <stop offset="100%" stopColor="#ef4444" />
+                </radialGradient>
+              </defs>
+              <path
+                d="M16 2 C26 10, 27.5 24, 16 46 C5 24, 6 10, 16 2 Z"
+                fill={`url(#petal-grad-${p.id})`}
+              />
+            </svg>
+          </span>
         </span>
       ))}
     </div>
